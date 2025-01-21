@@ -13,8 +13,10 @@
     --white: #f5f0ff;
     --gray: #c1bccb;
     --dark-gray: #716c7b;
-    --purple-gray:#4f4566;
+    --purple-gray: #4f4566;
     --purple-dark-gray: #272135;
+    --skeleton-loading-base: #efeafa;
+    --skeleton-loading-highlight: #e7e1f6;
 }
 
 html,
