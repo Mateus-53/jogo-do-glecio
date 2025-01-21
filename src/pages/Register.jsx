@@ -5,18 +5,29 @@ import Select from "../components/Select";
 import { getAvatarsList, getCoursesList } from "../services/userService";
 import SuccessToast from "../components/toast/SuccessToast";
 import AvatarSelector from "../components/AvatarSelector";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { createUser } from "../services/authService";
 
 function Register() {
     const [avatarsList, setAvatarsList] = useState([]);
     const [coursesList, setCoursesList] = useState([]);
-    const [errorMessage, setErrorMessage] = useState(null);
+    const [error, setError] = useState(null);
+
+    const [userData, setUserData] = useState({
+        avatar_id: 1,
+        name: null,
+        course_id: null,
+        email: null,
+        password: null,
+    });
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (localStorage.getItem("ACCESS_TOKEN")) {
-            window.location.href = "/";
+            navigate("/", { replace: true });
         }
-    }, []);
+    }, [navigate]);
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -24,22 +35,37 @@ function Register() {
                 const courses = await getCoursesList();
                 setCoursesList(courses);
             } catch (error) {
-                setErrorMessage(error);
+                setError(error.message || "Ocorreu um erro ao carregar a lista de cursos.");
             }
         };
 
         const fetchAvatars = async () => {
             try {
                 const avatars = await getAvatarsList();
+                console.log(avatars)
                 setAvatarsList(avatars);
             } catch (error) {
-                setErrorMessage(error);
+                setError(error.message || "Ocorreu um erro ao carregar os avatares.");
             }
         };
 
         fetchAvatars();
         fetchCourses();
     }, []);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await createUser(userData)
+
+            if (response.access_token) {
+                navigate("/", {replace: true})
+            }
+        } catch(error) {
+            setError(error.message || "Ocorreu um erro ao criar seu perfil.")
+        }
+    };
 
     return (
         <>
@@ -55,31 +81,63 @@ function Register() {
                                 Informe os dados abaixo para a criar seu perfil.
                             </span>
                         </div>
-                        <form className="space-y-4">
-                            <AvatarSelector avatarsList={avatarsList} />
+                        <form className="space-y-4" onSubmit={handleSubmit}>
+                            <AvatarSelector
+                                avatarsList={avatarsList}
+                                onSelect={(avatarId) =>
+                                    setUserData((prev) => ({
+                                        ...prev,
+                                        avatar_id: avatarId,
+                                    }))
+                                }
+                            />
                             <Input
                                 label="Insira seu nome"
                                 name="name"
                                 type="text"
                                 placeholder="Glécio Raimundo"
+                                onChange={(e) => {
+                                    setUserData((prev) => ({
+                                        ...prev,
+                                        name: e.target.value,
+                                    }));
+                                }}
                             />
                             <Select
                                 label="Escolha sua turma"
                                 name="courses"
                                 values={coursesList}
+                                onSelect={(avatarId) => {
+                                    setUserData((prev) => ({
+                                        ...prev,
+                                        course_id: avatarId,
+                                    }));
+                                }}
                             />
                             <Input
                                 label="Insira seu e-mail"
                                 name="email"
                                 type="email"
                                 placeholder="glecio@prof.ce.gov.br"
+                                onChange={(e) =>
+                                    setUserData((prev) => ({
+                                        ...prev,
+                                        email: e.target.value,
+                                    }))
+                                }
                             />
                             <Input
                                 label="Crie sua senha"
                                 name="password"
                                 type="password"
+                                onChange={(e) =>
+                                    setUserData((prev) => ({
+                                        ...prev,
+                                        password: e.target.value,
+                                    }))
+                                }
                             />
-                            <ButtonPrimary type="button">
+                            <ButtonPrimary type="submit">
                                 Criar perfil
                             </ButtonPrimary>
                         </form>

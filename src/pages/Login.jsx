@@ -2,18 +2,20 @@ import { useEffect, useState } from "react";
 import Input from "../components/Input";
 import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import { loginUser } from "../services/authService";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
+    const navigate = useNavigate()
+
     useEffect(() => {
         if (localStorage.getItem("ACCESS_TOKEN")) {
-            window.location.href = "/";
+            navigate("/", {replace: true})
         }
-    }, []);
+    }, [navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,7 +24,7 @@ function Login() {
             const response = await loginUser({ email, password });
 
             if (response.access_token) {
-                window.location.href = "/";
+               navigate("/", {replace: true})
             }
         } catch (error) {
             setError(error);

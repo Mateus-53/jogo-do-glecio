@@ -16,6 +16,8 @@ export default {
                 darkGray: "var(--dark-gray)",
                 purpleGray: "var(--purple-gray)",
                 purpleDarkGray: "var(--purple-dark-gray)",
+                skeletonLoadingBase: "var(--skeleton-loading-base)",
+                skeletonLoadingHighlight: "var(--skeleton-loading-highlight)",
             },
         },
     },
