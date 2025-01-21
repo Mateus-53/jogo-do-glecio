@@ -1,6 +1,6 @@
 import { setLocalUserInfo } from "../utils/userUtils";
 
-const baseURL = "http://localhost:3000/api/v1";
+const baseURL = "https://api-tabuada-glecio.vercel.app/api/v1";
 
 export const getUser = async (userId) => {
     try {
