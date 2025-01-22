@@ -61,13 +61,13 @@ function ResetPasswordRequest() {
             <Link
                 to="/login"
                 replace={true}
-                className="flex text-darkPurple items-center font-medium p-2 absolute top-8 left-14"
+                className="flex text-darkPurple items-center font-medium p-2 absolute top-8 left-14 max-sm:left-4"
             >
                 <HiMiniChevronLeft size={24} />
                 Retornar
             </Link>
-            <div className="flex justify-center items-center flex-grow">
-                <main className="max-w-sm p-8 rounded-lg border-2 border-gray">
+            <div className="flex max-sm:items-start max-sm:mt-24 justify-center items-center flex-grow">
+                <main className="max-w-sm max-[405px]:max-w-[86%] p-8 rounded-lg border-2 border-gray">
                     <div className="space-y-2">
                         <p className="text-4xl text-darkPurple font-black">
                             Resete sua senha

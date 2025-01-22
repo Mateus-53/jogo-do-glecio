@@ -24,7 +24,7 @@ const Toast = ({ text, type, onClose }) => {
     return (
         <motion.div
             id="toast"
-            className="absolute right-10 bottom-8 flex items-center w-full max-w-xs p-4 text-purpleGray bg-white rounded-lg shadow"
+            className="absolute right-10 max-sm:right-6 bottom-8 max-sm:bottom-6 flex items-center w-full max-w-xs p-4 text-purpleGray bg-white rounded-lg shadow"
             role="alert"
             variants={toastVariants}
             initial="hidden"

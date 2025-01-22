@@ -48,9 +48,9 @@ function Login() {
     return (
         <>
             <div className="flex">
-                <main className="h-screen w-1/2 flex justify-center items-center">
-                    <div className="w-full space-y-16 max-w-md bg-white p-8">
-                        <div className="flex flex-col gap-1 mb-6">
+                <main className="h-screen w-1/2 max-sm:w-full max-sm:items-start flex justify-center items-center">
+                    <div className="w-full space-y-16 max-sm:space-y-8 max-w-md bg-white p-8">
+                        <div className="flex flex-col gap-1">
                             <p className="text-4xl font-black bg-gradient-to-b from-darkPurple to-purpleSecondary bg-clip-text text-transparent">
                                 Bem-vindo de volta
                             </p>
@@ -59,7 +59,6 @@ function Login() {
                             </span>
                         </div>
                         <form className="space-y-12" onSubmit={handleSubmit}>
-                            <div></div>
                             <div className="space-y-3">
                                 <Input
                                     label="E-mail"
@@ -106,7 +105,7 @@ function Login() {
                     </div>
                 </main>
 
-                <div className="h-screen w-1/2 bg-gradient-to-b from-darkPurple to-purple"></div>
+                <div className="h-screen w-1/2 max-sm:hidden bg-gradient-to-b from-darkPurple to-purple"></div>
             </div>
             <AnimatePresence>
                 {toast.isVisible && (

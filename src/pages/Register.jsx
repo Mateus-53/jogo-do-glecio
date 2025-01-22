@@ -102,9 +102,9 @@ function Register() {
     return (
         <>
             <div className="flex">
-                <div className="h-screen w-1/2 bg-gradient-to-b from-darkPurple to-purple"></div>
-                <main className="h-screen w-1/2 flex justify-center items-center overflow-y-auto pt-16">
-                    <div className="w-full space-y-12 max-w-md bg-white p-8">
+                <div className="h-screen w-1/2 max-sm:hidden bg-gradient-to-b from-darkPurple to-purple"></div>
+                <main className="h-screen w-1/2 max-sm:w-full max-sm:items-start max-sm:pt-0 flex justify-center items-center overflow-y-auto pt-16">
+                    <div className="w-full space-y-12 max-sm:space-y-6 max-w-md bg-white p-8">
                         <div className="flex flex-col gap-1 mb-6">
                             <p className="text-4xl font-black bg-gradient-to-b from-darkPurple to-purpleSecondary bg-clip-text text-transparent">
                                 Crie seu perfil
@@ -184,7 +184,7 @@ function Register() {
                                 Criar perfil
                             </ButtonPrimary>
                         </form>
-                        <span className="text-purpleDarkGray text-center block mt-4">
+                        <span className="text-purpleDarkGray text-center block">
                             Já possui um perfil?{" "}
                             <Link
                                 to="/login"

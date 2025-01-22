@@ -24,4 +24,5 @@ body {
     font-family: "Inter", sans-serif;
     background-color: var(--white);
     color: var(--purple-gray);
+    height: 100%;
 }
