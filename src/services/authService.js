@@ -47,7 +47,7 @@ export const loginUser = async (credentials) => {
         const body = await response.json();
         const { data } = body;
 
-        if (!response.ok) {
+        if (!response.ok || body.status_code != 200) {
             throw new Error(body.message || "Erro na autenticação");
         }
 

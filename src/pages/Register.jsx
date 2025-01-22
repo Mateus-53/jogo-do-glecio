@@ -3,15 +3,22 @@ import Input from "../components/Input";
 import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import Select from "../components/Select";
 import { getAvatarsList, getCoursesList } from "../services/userService";
-import SuccessToast from "../components/toast/SuccessToast";
+import Toast from "../components/Toast";
 import AvatarSelector from "../components/AvatarSelector";
 import { Link, useNavigate } from "react-router";
 import { createUser } from "../services/authService";
+import { AnimatePresence } from "framer-motion";
 
 function Register() {
     const [avatarsList, setAvatarsList] = useState([]);
     const [coursesList, setCoursesList] = useState([]);
-    const [error, setError] = useState(null);
+    const [buttonIsLoading, setButtonIsLoading] = useState(false);
+
+    const [toast, setToast] = useState({
+        message: "",
+        type: "success",
+        isVisible: false,
+    });
 
     const [userData, setUserData] = useState({
         avatar_id: 1,
@@ -35,17 +42,28 @@ function Register() {
                 const courses = await getCoursesList();
                 setCoursesList(courses);
             } catch (error) {
-                setError(error.message || "Ocorreu um erro ao carregar a lista de cursos.");
+                setToast({
+                    type: "error",
+                    message:
+                        error.message ||
+                        "Ocorreu um erro ao carregar a lista de cursos.",
+                    isVisible: true,
+                });
             }
         };
 
         const fetchAvatars = async () => {
             try {
                 const avatars = await getAvatarsList();
-                console.log(avatars)
                 setAvatarsList(avatars);
             } catch (error) {
-                setError(error.message || "Ocorreu um erro ao carregar os avatares.");
+                setToast({
+                    type: "error",
+                    message:
+                        error.message ||
+                        "Ocorreu um erro ao carregar os avatares.",
+                    isVisible: true,
+                });
             }
         };
 
@@ -55,16 +73,23 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setButtonIsLoading(true);
 
         try {
-            const response = await createUser(userData)
+            const response = await createUser(userData);
 
             if (response.access_token) {
-                navigate("/", {replace: true})
+                navigate("/", { replace: true });
             }
-        } catch(error) {
-            setError(error.message || "Ocorreu um erro ao criar seu perfil.")
+        } catch (error) {
+            setToast({
+                type: "error",
+                message: error.message || "Erro ao criar perfil.",
+                isVisible: true,
+            });
         }
+
+        setButtonIsLoading(false);
     };
 
     return (
@@ -137,7 +162,10 @@ function Register() {
                                     }))
                                 }
                             />
-                            <ButtonPrimary type="submit">
+                            <ButtonPrimary
+                                type="submit"
+                                isLoading={buttonIsLoading}
+                            >
                                 Criar perfil
                             </ButtonPrimary>
                         </form>
@@ -153,6 +181,17 @@ function Register() {
                     </div>
                 </main>
             </div>
+            <AnimatePresence>
+                {toast.isVisible && (
+                    <Toast
+                        text={toast.message}
+                        type={toast.type}
+                        onClose={() =>
+                            setToast((prev) => ({ ...prev, isVisible: false }))
+                        }
+                    />
+                )}
+            </AnimatePresence>
         </>
     );
 }
