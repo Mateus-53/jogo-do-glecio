@@ -47,7 +47,9 @@ function ResetPasswordRequest() {
         } catch (error) {
             setButtonIsLoading(false);
             setToast({
-                message: error.message,
+                message:
+                    error.message ||
+                    "Erro ao enviar e-mail de recuperação. Tente novamente mais tarde",
                 type: "error",
                 isVisible: true,
             });
@@ -56,14 +58,14 @@ function ResetPasswordRequest() {
 
     return (
         <div className="h-screen flex flex-col">
-                <Link
-                    to="/login"
-                    replace={true}
-                    className="flex text-darkPurple items-center font-medium p-2 absolute top-8 left-14"
-                >
-                    <HiMiniChevronLeft size={24} />
-                    Retornar
-                </Link>
+            <Link
+                to="/login"
+                replace={true}
+                className="flex text-darkPurple items-center font-medium p-2 absolute top-8 left-14"
+            >
+                <HiMiniChevronLeft size={24} />
+                Retornar
+            </Link>
             <div className="flex justify-center items-center flex-grow">
                 <main className="max-w-sm p-8 rounded-lg border-2 border-gray">
                     <div className="space-y-2">
@@ -81,6 +83,7 @@ function ResetPasswordRequest() {
                             placeholder="glecio@prof.ce.gov.br"
                             type="email"
                             name="email"
+                            required={true}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         <ButtonPrimary

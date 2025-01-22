@@ -65,6 +65,7 @@ function Login() {
                                     label="E-mail"
                                     type="email"
                                     name="email"
+                                    required={true}
                                     placeholder="glecio@prof.ce.gov.br"
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
@@ -72,6 +73,7 @@ function Login() {
                                     label="Senha"
                                     type="password"
                                     name="password"
+                                    required={true}
                                     onChange={(e) =>
                                         setPassword(e.target.value)
                                     }

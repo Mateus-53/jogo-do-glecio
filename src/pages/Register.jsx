@@ -41,6 +41,13 @@ function Register() {
             try {
                 const courses = await getCoursesList();
                 setCoursesList(courses);
+
+                if (courses.length > 0) {
+                    setUserData((prev) => ({
+                        ...prev,
+                        course_id: courses[0].id,
+                    }));
+                }
             } catch (error) {
                 setToast({
                     type: "error",
@@ -121,6 +128,7 @@ function Register() {
                                 name="name"
                                 type="text"
                                 placeholder="Glécio Raimundo"
+                                required={true}
                                 onChange={(e) => {
                                     setUserData((prev) => ({
                                         ...prev,
@@ -132,6 +140,11 @@ function Register() {
                                 label="Escolha sua turma"
                                 name="courses"
                                 values={coursesList}
+                                selectedValue={
+                                    coursesList.length > 0
+                                        ? coursesList[0]?.id
+                                        : null
+                                }
                                 onSelect={(avatarId) => {
                                     setUserData((prev) => ({
                                         ...prev,
@@ -144,6 +157,7 @@ function Register() {
                                 name="email"
                                 type="email"
                                 placeholder="glecio@prof.ce.gov.br"
+                                required={true}
                                 onChange={(e) =>
                                     setUserData((prev) => ({
                                         ...prev,
@@ -155,6 +169,7 @@ function Register() {
                                 label="Crie sua senha"
                                 name="password"
                                 type="password"
+                                required={true}
                                 onChange={(e) =>
                                     setUserData((prev) => ({
                                         ...prev,
