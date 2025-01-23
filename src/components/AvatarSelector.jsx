@@ -90,7 +90,7 @@ const AvatarSelector = ({ avatarsList, selectedAvatarIndex, onSelect }) => {
                             className="w-16 h-16 flex-none mr-3 cursor-pointer relative"
                         >
                             <img
-                                className="h-full w-full rounded-full bg-skeletonLoadingBase object-cover"
+                                className="h-full w-full rounded-full bg-skeletonLoadingBase object-cover select-none"
                                 src={avatar.path_256px}
                                 alt={`Avatar ${avatar.id}`}
                             />
