@@ -47,9 +47,9 @@ const Input = ({
                         }
                     >
                         {isPasswordVisible ? (
-                            <HiEyeOff className="w-5 h-5" />
+                            <HiEyeOff className="w-5 h-5" title="Esconder senha"/>
                         ) : (
-                            <HiEye className="h-5 w-5" />
+                            <HiEye className="h-5 w-5" title="Mostrar senha"/>
                         )}
                     </button>
                 )}
