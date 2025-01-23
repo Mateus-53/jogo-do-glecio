@@ -26,3 +26,8 @@ body {
     color: var(--purple-gray);
     height: 100%;
 }
+@media not all and (max-width: 640px) {
+    .scrollbar-hide {
+        scrollbar-width: none;
+    }
+}
