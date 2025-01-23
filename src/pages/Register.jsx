@@ -80,9 +80,13 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         setButtonIsLoading(true);
 
         try {
+            if (userData.password.length <= 4)
+                throw new Error("A senha deve conter no mínimo 4 caracteres.");
+
             const response = await createUser(userData);
 
             if (response.access_token) {

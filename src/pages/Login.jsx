@@ -86,7 +86,7 @@ function Login() {
                                     Acessar
                                 </ButtonPrimary>
                                 <Link
-                                    to="/password-reset"
+                                    to="/password-reset/request"
                                     className="text-purpleDarkGray self-end text-sm"
                                 >
                                     Esqueceu sua senha?

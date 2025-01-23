@@ -7,6 +7,7 @@ const Input = ({
     placeholder,
     type,
     value,
+    error,
     required,
     onChange,
 }) => {
@@ -33,7 +34,9 @@ const Input = ({
                     placeholder={placeholder}
                     onChange={onChange}
                     required={required}
-                    className="py-[10px] pl-3 pr-10 rounded-md border-2 text-purpleGray border-[#E2DDEB] outline-none bg-transparent focus:border-purple w-full"
+                    className={`py-[10px] pl-3 pr-10 rounded-md border-2 text-purpleGray outline-none bg-transparent focus:border-purple w-full ${
+                        error ? "border-red-500" : "border-[#E2DDEB]"
+                    }`}
                 />
                 {isPassword && (
                     <button
@@ -47,9 +50,12 @@ const Input = ({
                         }
                     >
                         {isPasswordVisible ? (
-                            <HiEyeOff className="w-5 h-5" title="Esconder senha"/>
+                            <HiEyeOff
+                                className="w-5 h-5"
+                                title="Esconder senha"
+                            />
                         ) : (
-                            <HiEye className="h-5 w-5" title="Mostrar senha"/>
+                            <HiEye className="h-5 w-5" title="Mostrar senha" />
                         )}
                     </button>
                 )}

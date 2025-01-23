@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ResetPasswordRequest from "./pages/ResetPasswordRequest";
 import EditProfile from "./pages/EditProfile";
+import ResetPasswordConfirm from "./pages/ResetPasswordConfirm";
 
 function App() {
     return (
@@ -12,7 +13,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/password-reset" element={<ResetPasswordRequest />} />
+                <Route path="/password-reset/request" element={<ResetPasswordRequest />} />
+                <Route path="/password-reset/confirm/:token" element={<ResetPasswordConfirm />} />
                 <Route path="/edit-information" element={<EditProfile />} />
             </Routes>
         </BrowserRouter>
