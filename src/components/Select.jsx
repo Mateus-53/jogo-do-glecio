@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { HiChevronDown } from "react-icons/hi2";
 
 const Select = ({ name, label, values, selectedValue, onSelect }) => {
     const [selectedOption, setSelectedOption] = useState(selectedValue);
@@ -18,19 +19,22 @@ const Select = ({ name, label, values, selectedValue, onSelect }) => {
             <label className="text-darkGray text-sm" htmlFor={`select-${name}`}>
                 {label}
             </label>
-            <select
-                id={`select-${name}`}
-                name={name}
-                value={selectedOption}
-                className="px-[10px] py-[14px] cursor-pointer rounded-md border-2 text-purpleGray border-[#E2DDEB] outline-none bg-transparent focus:border-purple"
-                onChange={handleChange}
-            >
-                {values.map((value, i) => (
-                    <option key={i} value={value.id}>
-                        {value.name}
-                    </option>
-                ))}
-            </select>
+            <div className="relative">
+                <select
+                    id={`select-${name}`}
+                    name={name}
+                    value={selectedOption}
+                    className="px-[10px] py-[14px] cursor-pointer rounded-md border-2 text-purpleGray border-[#E2DDEB] outline-none bg-transparent focus:border-purple appearance-none w-full"
+                    onChange={handleChange}
+                >
+                    {values.map((value, i) => (
+                        <option key={i} value={value.id}>
+                            {value.name}
+                        </option>
+                    ))}
+                </select>
+                <HiChevronDown className="absolute top-1/2 right-3 transform -translate-y-1/2 pointer-events-none text-purpleGray" />
+            </div>
         </div>
     );
 };
