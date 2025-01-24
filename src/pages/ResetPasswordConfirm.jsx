@@ -7,17 +7,21 @@ import { resetPasswordConfirm } from "../services/authService";
 import Toast from "../components/Toast";
 import { AnimatePresence } from "framer-motion";
 import { isValidJWT } from "../utils/authUtils";
+import ButtonGreen from "../components/buttons/ButtonGreen";
 
 function ResetPasswordConfirm() {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [buttonIsLoading, setButtonIsLoading] = useState(false);
+    
     const [toast, setToast] = useState({
         message: "",
         type: "success",
         isVisible: false,
     });
+
+    const [buttonIsLoading, setButtonIsLoading] = useState(false);
     const [inputErrorIndicator, setInputErrorIndicator] = useState(false);
+    
     const navigate = useNavigate();
 
     const { token } = useParams();
@@ -108,9 +112,9 @@ function ResetPasswordConfirm() {
                             error={inputErrorIndicator}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
-                        <ButtonPrimary isLoading={buttonIsLoading}>
+                        <ButtonGreen isLoading={buttonIsLoading}>
                             Confirmar
-                        </ButtonPrimary>
+                        </ButtonGreen>
                     </form>
                 </main>
             </div>

@@ -24,7 +24,7 @@ const Select = ({ name, label, values, selectedValue, onSelect }) => {
                     id={`select-${name}`}
                     name={name}
                     value={selectedOption}
-                    className="px-[10px] py-[14px] cursor-pointer rounded-md border-2 text-purpleGray border-[#E2DDEB] outline-none bg-transparent focus:border-purple appearance-none w-full"
+                    className="px-[10px] py-3 cursor-pointer rounded-lg border-2 text-purpleGray border-[#E2DDEB] outline-none bg-transparent focus:border-purple appearance-none w-full"
                     onChange={handleChange}
                 >
                     {values.map((value, i) => (

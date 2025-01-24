@@ -12,7 +12,10 @@ import { AnimatePresence } from "framer-motion";
 function Register() {
     const [avatarsList, setAvatarsList] = useState([]);
     const [coursesList, setCoursesList] = useState([]);
+
     const [buttonIsLoading, setButtonIsLoading] = useState(false);
+    const [inputErrorIndicator, setInputErrorIndicator] = useState(false);
+
 
     const [toast, setToast] = useState({
         message: "",
@@ -82,10 +85,13 @@ function Register() {
         e.preventDefault();
 
         setButtonIsLoading(true);
+        setInputErrorIndicator(false)
 
         try {
-            if (userData.password.length <= 4)
+            if (userData.password.length <= 4) {
+                setInputErrorIndicator(true)
                 throw new Error("A senha deve conter no mínimo 4 caracteres.");
+            }
 
             const response = await createUser(userData);
 
@@ -173,6 +179,7 @@ function Register() {
                                 label="Crie sua senha"
                                 name="password"
                                 type="password"
+                                error={inputErrorIndicator}
                                 required={true}
                                 onChange={(e) =>
                                     setUserData((prev) => ({

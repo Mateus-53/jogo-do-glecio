@@ -34,7 +34,7 @@ const Input = ({
                     placeholder={placeholder}
                     onChange={onChange}
                     required={required}
-                    className={`py-[10px] pl-3 pr-10 rounded-md border-2 text-purpleGray outline-none bg-transparent focus:border-purple w-full ${
+                    className={`py-[10px] pl-3 pr-10 rounded-lg border-2 text-purpleGray outline-none bg-transparent focus:border-purple w-full ${
                         error ? "border-red-500" : "border-[#E2DDEB]"
                     }`}
                 />
