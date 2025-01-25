@@ -1,10 +1,11 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import Input from "../components/Input";
+import Toast from "../components/Toast";
 import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import { loginUser } from "../services/authService";
-import { Link, useNavigate } from "react-router";
-import { AnimatePresence } from "framer-motion";
-import Toast from "../components/Toast";
+import { fade } from "../animations/pageAnimations";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -47,7 +48,13 @@ function Login() {
 
     return (
         <>
-            <div className="flex">
+            <motion.div
+                className="flex"
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={fade()}
+            >
                 <main className="h-screen w-1/2 max-sm:w-full max-sm:items-start flex justify-center items-center">
                     <div className="w-full space-y-16 max-sm:space-y-8 max-w-md bg-white p-8">
                         <div className="flex flex-col gap-1">
@@ -106,7 +113,7 @@ function Login() {
                 </main>
 
                 <div className="h-screen w-1/2 max-sm:hidden bg-gradient-to-b from-darkPurple to-purple"></div>
-            </div>
+            </motion.div>
             <AnimatePresence>
                 {toast.isVisible && (
                     <Toast

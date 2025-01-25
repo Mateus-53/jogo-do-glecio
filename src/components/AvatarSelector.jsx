@@ -98,7 +98,7 @@ const AvatarSelector = ({ avatarsList, selectedAvatarIndex, onSelect }) => {
                                 <img
                                     src={SelectedIndicator}
                                     alt="Selected"
-                                    className="absolute w-16 h-16 top-0 left-0 pointer-events-none"
+                                    className="absolute w-16 h-16 top-0 left-0 pointer-events-none select-none"
                                 />
                             )}
                         </span>

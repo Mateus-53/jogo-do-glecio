@@ -1,13 +1,14 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import Input from "../components/Input";
-import ButtonPrimary from "../components/buttons/ButtonPrimary";
-import Select from "../components/Select";
-import { getAvatarsList, getCoursesList } from "../services/userService";
-import Toast from "../components/Toast";
-import AvatarSelector from "../components/AvatarSelector";
 import { Link, useNavigate } from "react-router";
+import AvatarSelector from "../components/AvatarSelector";
+import ButtonPrimary from "../components/buttons/ButtonPrimary";
+import Input from "../components/Input";
+import Select from "../components/Select";
+import Toast from "../components/Toast";
 import { createUser } from "../services/authService";
-import { AnimatePresence } from "framer-motion";
+import { getAvatarsList, getCoursesList } from "../services/userService";
+import { fade } from "../animations/pageAnimations";
 
 function Register() {
     const [avatarsList, setAvatarsList] = useState([]);
@@ -15,7 +16,6 @@ function Register() {
 
     const [buttonIsLoading, setButtonIsLoading] = useState(false);
     const [inputErrorIndicator, setInputErrorIndicator] = useState(false);
-
 
     const [toast, setToast] = useState({
         message: "",
@@ -85,11 +85,11 @@ function Register() {
         e.preventDefault();
 
         setButtonIsLoading(true);
-        setInputErrorIndicator(false)
+        setInputErrorIndicator(false);
 
         try {
             if (userData.password.length <= 4) {
-                setInputErrorIndicator(true)
+                setInputErrorIndicator(true);
                 throw new Error("A senha deve conter no mínimo 4 caracteres.");
             }
 
@@ -111,7 +111,13 @@ function Register() {
 
     return (
         <>
-            <div className="flex">
+            <motion.div
+                className="flex"
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={fade()}
+            >
                 <div className="h-screen w-1/2 max-sm:hidden bg-gradient-to-b from-darkPurple to-purple"></div>
                 <main className="h-screen w-1/2 max-sm:w-full max-sm:items-start max-sm:pt-0 flex justify-center items-center overflow-y-auto pt-16">
                     <div className="w-full space-y-12 max-sm:space-y-6 max-w-md bg-white p-8">
@@ -206,7 +212,7 @@ function Register() {
                         </span>
                     </div>
                 </main>
-            </div>
+            </motion.div>
             <AnimatePresence>
                 {toast.isVisible && (
                     <Toast
