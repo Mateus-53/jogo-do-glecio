@@ -8,6 +8,8 @@ import ButtonGreen from "../components/buttons/ButtonGreen";
 import { HiOutlineInformationCircle, HiOutlinePlay } from "react-icons/hi2";
 
 function Home() {
+	document.title = "Início · Jogo do Glécio"
+
 	const navigate = useNavigate();
 	const [userInfo, setUserInfo] = useState("");
 

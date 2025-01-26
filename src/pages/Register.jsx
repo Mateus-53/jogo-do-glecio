@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { fade } from "../animations/pageAnimations";
 import AvatarSelector from "../components/AvatarSelector";
 import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import Input from "../components/Input";
@@ -8,9 +9,10 @@ import Select from "../components/Select";
 import Toast from "../components/Toast";
 import { createUser } from "../services/authService";
 import { getAvatarsList, getCoursesList } from "../services/userService";
-import { fade } from "../animations/pageAnimations";
 
 function Register() {
+    document.title = "Criar perfil · Jogo do Glécio"
+
     const [avatarsList, setAvatarsList] = useState([]);
     const [coursesList, setCoursesList] = useState([]);
 
@@ -195,6 +197,7 @@ function Register() {
                                 }
                             />
                             <ButtonPrimary
+                                disabled={coursesList.length === 0}
                                 type="submit"
                                 isLoading={buttonIsLoading}
                             >

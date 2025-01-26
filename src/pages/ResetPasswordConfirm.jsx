@@ -1,7 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router";
 import { HiMiniChevronLeft } from "react-icons/hi2";
 import Input from "../components/Input";
-import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import { useEffect, useState } from "react";
 import { resetPasswordConfirm } from "../services/authService";
 import Toast from "../components/Toast";
@@ -10,6 +9,8 @@ import { isValidJWT } from "../utils/authUtils";
 import ButtonGreen from "../components/buttons/ButtonGreen";
 
 function ResetPasswordConfirm() {
+    document.title = "Resetar senha · Jogo do Glécio"
+
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     

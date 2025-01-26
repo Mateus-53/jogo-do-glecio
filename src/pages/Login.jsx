@@ -8,6 +8,8 @@ import { loginUser } from "../services/authService";
 import { fade } from "../animations/pageAnimations";
 
 function Login() {
+    document.title = "Login · Jogo do Glécio"
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [toast, setToast] = useState({
