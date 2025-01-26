@@ -1,4 +1,4 @@
-const baseURL = "https://api-tabuada-glecio.vercel.app/api/v1";
+const baseURL = "https://api-tabuada-glecio.vercel.app/api/v1/ranking";
 
 export const getRankingNormal = async () => {
     try {
