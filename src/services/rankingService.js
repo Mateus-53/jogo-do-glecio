@@ -22,7 +22,6 @@ export const getRankingNormal = async () => {
     }
 };
 
-
 export const getRankingGlobal = async () => {
     try {
         const response = await fetch(`${baseURL}/global`, {
@@ -45,7 +44,7 @@ export const getRankingGlobal = async () => {
     }
 };
 
-export const setRanking = async (score) => {
+export const setRanking = async (score, attempt = 0) => {
     try {
         const response = await fetch(baseURL, {
             method: "POST",
@@ -59,7 +58,13 @@ export const setRanking = async (score) => {
         const body = await response.json();
 
         if (!response.ok) {
-            throw new Error(body.message || "Erro ao enviar pontos para o ranking");
+            if (attempt <= 3) {
+                setRanking(score, attempt + 1);
+            } else {
+                throw new Error(
+                    body.message || "Erro ao enviar pontos para o ranking"
+                );
+            }
         }
 
         return body;
