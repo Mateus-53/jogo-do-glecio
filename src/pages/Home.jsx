@@ -29,10 +29,10 @@ function Home() {
     }, []);
 
     return (
-			<main className="flex gap-5 p-10">
+			<main className="flex gap-12 lg:gap-24 p-10 max-w-7xl mx-auto">
 				<div className="flex flex-col w-full gap-32 md:w-1/2 lg:w-2/3">
 					{/* Profile header */}
-					<div className="flex items-center gap-8">
+					<div className="flex items-center gap-8 md:gap-4 lg:gap-8">
 						<img
 							src={userInfo.avatarDefault}
 							alt={`${userInfo.name ?? "Anônimo"}'s avatar`}
