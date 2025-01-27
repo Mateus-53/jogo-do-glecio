@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { fade } from "../animations/pageAnimations";
@@ -6,24 +6,18 @@ import AvatarSelector from "../components/AvatarSelector";
 import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import Input from "../components/Input";
 import Select from "../components/Select";
-import Toast from "../components/Toast";
 import { createUser } from "../services/authService";
 import { getAvatarsList, getCoursesList } from "../services/userService";
+import { toast } from "react-toastify";
 
 function Register() {
-    document.title = "Criar perfil · Jogo do Glécio"
+    document.title = "Criar perfil · Jogo do Glécio";
 
     const [avatarsList, setAvatarsList] = useState([]);
     const [coursesList, setCoursesList] = useState([]);
 
     const [buttonIsLoading, setButtonIsLoading] = useState(false);
     const [inputErrorIndicator, setInputErrorIndicator] = useState(false);
-
-    const [toast, setToast] = useState({
-        message: "",
-        type: "success",
-        isVisible: false,
-    });
 
     const [userData, setUserData] = useState({
         avatar_id: 1,
@@ -54,13 +48,13 @@ function Register() {
                     }));
                 }
             } catch (error) {
-                setToast({
-                    type: "error",
-                    message:
-                        error.message ||
-                        "Ocorreu um erro ao carregar a lista de cursos.",
-                    isVisible: true,
-                });
+                toast.error(
+                    error.message ||
+                        "Ocorreu um erro ao carregar a lista de cursos",
+                    {
+                        className: "bg-white",
+                    }
+                );
             }
         };
 
@@ -69,13 +63,12 @@ function Register() {
                 const avatars = await getAvatarsList();
                 setAvatarsList(avatars);
             } catch (error) {
-                setToast({
-                    type: "error",
-                    message:
-                        error.message ||
-                        "Ocorreu um erro ao carregar os avatares.",
-                    isVisible: true,
-                });
+                toast.error(
+                    error.message || "Ocorreu um erro ao carregar os avatares",
+                    {
+                        className: "bg-white",
+                    }
+                );
             }
         };
 
@@ -99,12 +92,14 @@ function Register() {
 
             if (response.access_token) {
                 navigate("/", { replace: true });
+
+                toast.success("Perfil criado com sucesso!", {
+                    className: "bg-white",
+                });
             }
         } catch (error) {
-            setToast({
-                type: "error",
-                message: error.message || "Erro ao criar perfil.",
-                isVisible: true,
+            toast.error(error.message || "Erro ao criar perfil", {
+                className: "bg-white",
             });
         }
 
@@ -216,17 +211,6 @@ function Register() {
                     </div>
                 </main>
             </motion.div>
-            <AnimatePresence>
-                {toast.isVisible && (
-                    <Toast
-                        text={toast.message}
-                        type={toast.type}
-                        onClose={() =>
-                            setToast((prev) => ({ ...prev, isVisible: false }))
-                        }
-                    />
-                )}
-            </AnimatePresence>
         </>
     );
 }

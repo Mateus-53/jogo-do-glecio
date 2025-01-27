@@ -1,24 +1,19 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { HiMiniChevronLeft } from "react-icons/hi2";
 import { Link } from "react-router";
 import { scrollFromRight } from "../animations/pageAnimations";
 import Input from "../components/Input";
-import Toast from "../components/Toast";
 import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import { resetPasswordRequest } from "../services/authService";
+import { toast } from "react-toastify";
 
 function ResetPasswordRequest() {
-    document.title = "Esqueceu sua senha? · Jogo do Glécio"
+    document.title = "Esqueceu sua senha? · Jogo do Glécio";
 
     const [email, setEmail] = useState("");
     const [time, setTime] = useState(0);
     const [buttonIsLoading, setButtonIsLoading] = useState(false);
-    const [toast, setToast] = useState({
-        message: "",
-        type: "success",
-        isVisible: false,
-    });
 
     useEffect(() => {
         if (time > 0) {
@@ -41,21 +36,19 @@ function ResetPasswordRequest() {
             setButtonIsLoading(false);
 
             if (response.status_code == 200) {
-                setToast({
-                    message: response.message,
-                    type: "success",
-                    isVisible: true,
+                toast.success(response.message, {
+                    className: "bg-white",
                 });
             }
         } catch (error) {
             setButtonIsLoading(false);
-            setToast({
-                message:
-                    error.message ||
+            toast.error(
+                error.message ||
                     "Erro ao enviar e-mail de recuperação. Tente novamente mais tarde",
-                type: "error",
-                isVisible: true,
-            });
+                {
+                    className: "bg-white",
+                }
+            );
         }
     };
 
@@ -110,20 +103,6 @@ function ResetPasswordRequest() {
                         </form>
                     </main>
                 </div>
-                <AnimatePresence>
-                    {toast.isVisible && (
-                        <Toast
-                            text={toast.message}
-                            type={toast.type}
-                            onClose={() =>
-                                setToast((prev) => ({
-                                    ...prev,
-                                    isVisible: false,
-                                }))
-                            }
-                        />
-                    )}
-                </AnimatePresence>
             </motion.div>
         </div>
     );

@@ -3,26 +3,19 @@ import { HiMiniChevronLeft } from "react-icons/hi2";
 import Input from "../components/Input";
 import { useEffect, useState } from "react";
 import { resetPasswordConfirm } from "../services/authService";
-import Toast from "../components/Toast";
-import { AnimatePresence } from "framer-motion";
 import { isValidJWT } from "../utils/authUtils";
 import ButtonGreen from "../components/buttons/ButtonGreen";
+import { toast } from "react-toastify";
 
 function ResetPasswordConfirm() {
-    document.title = "Resetar senha · Jogo do Glécio"
+    document.title = "Resetar senha · Jogo do Glécio";
 
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    
-    const [toast, setToast] = useState({
-        message: "",
-        type: "success",
-        isVisible: false,
-    });
 
     const [buttonIsLoading, setButtonIsLoading] = useState(false);
     const [inputErrorIndicator, setInputErrorIndicator] = useState(false);
-    
+
     const navigate = useNavigate();
 
     const { token } = useParams();
@@ -55,23 +48,22 @@ function ResetPasswordConfirm() {
             setButtonIsLoading(false);
 
             if (response.status_code == 200) {
-                setToast({
-                    message: response.message,
-                    type: "success",
-                    isVisible: true,
+                toast.success(response.message, {
+                    className: "bg-white",
                 });
 
                 navigate("/login", { replace: true });
             }
         } catch (error) {
             setButtonIsLoading(false);
-            setToast({
-                message:
-                    error.message ||
-                    "Erro ao enviar e-mail de recuperação. Tente novamente mais tarde",
-                type: "error",
-                isVisible: true,
-            });
+
+            toast.error(
+                error.message ||
+                    "Erro ao resetar senha. Tente novamente mais tarde",
+                {
+                    className: "bg-white",
+                }
+            );
         }
     };
 
@@ -119,17 +111,6 @@ function ResetPasswordConfirm() {
                     </form>
                 </main>
             </div>
-            <AnimatePresence>
-                {toast.isVisible && (
-                    <Toast
-                        text={toast.message}
-                        type={toast.type}
-                        onClose={() =>
-                            setToast((prev) => ({ ...prev, isVisible: false }))
-                        }
-                    />
-                )}
-            </AnimatePresence>
         </div>
     );
 }

@@ -1,22 +1,17 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import { fade } from "../animations/pageAnimations";
 import Input from "../components/Input";
-import Toast from "../components/Toast";
 import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import { loginUser } from "../services/authService";
-import { fade } from "../animations/pageAnimations";
 
 function Login() {
-    document.title = "Login · Jogo do Glécio"
+    document.title = "Login · Jogo do Glécio";
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [toast, setToast] = useState({
-        message: "",
-        type: "success",
-        isVisible: false,
-    });
     const [buttonIsLoading, setButtonIsLoading] = useState(false);
 
     const navigate = useNavigate();
@@ -38,10 +33,8 @@ function Login() {
                 navigate("/", { replace: true });
             }
         } catch (error) {
-            setToast({
-                message: error.message || "Erro ao fazer login",
-                type: "error",
-                isVisible: true,
+            toast.error(error.message || "Erro ao fazer login", {
+                className: "bg-white",
             });
         }
 
@@ -116,17 +109,6 @@ function Login() {
 
                 <div className="h-screen w-1/2 max-sm:hidden bg-gradient-to-b from-darkPurple to-purple"></div>
             </motion.div>
-            <AnimatePresence>
-                {toast.isVisible && (
-                    <Toast
-                        text={toast.message}
-                        type={toast.type}
-                        onClose={() =>
-                            setToast((prev) => ({ ...prev, isVisible: false }))
-                        }
-                    />
-                )}
-            </AnimatePresence>
         </>
     );
 }
