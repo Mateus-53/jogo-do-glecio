@@ -14,7 +14,12 @@ export const createUser = async (userData) => {
         const { data } = body;
 
         if (!response.ok) {
-            throw new Error(body.message || "Erro no registro de usuário");
+            const error = new Error(
+                body.message || "Erro no registro de usuário"
+            );
+            error.statusCode = response.status_code || 500;
+
+            throw error;
         }
 
         localStorage.setItem("ACCESS_TOKEN", data.access_token);
@@ -48,7 +53,10 @@ export const loginUser = async (credentials) => {
         const { data } = body;
 
         if (!response.ok || body.status_code != 200) {
-            throw new Error(body.message || "Erro na autenticação");
+            const error = Error(body.message || "Erro na autenticação");
+            error.statusCode = response.status_code || 500;
+
+            throw error;
         }
 
         localStorage.setItem("ACCESS_TOKEN", data.access_token);
