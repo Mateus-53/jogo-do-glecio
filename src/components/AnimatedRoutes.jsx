@@ -1,5 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router";
+import About from "../pages/About";
 import EditProfile from "../pages/EditProfile";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -24,7 +25,8 @@ function AnimatedRoutes() {
                     path="/password-reset/confirm/:token"
                     element={<ResetPasswordConfirm />}
                 />
-                <Route path="/edit-information" element={<EditProfile />} />
+                <Route path="/edit-profile" element={<EditProfile />} />
+                <Route path="/about" element={<About />} />
             </Routes>
         </AnimatePresence>
     );

@@ -1,11 +1,11 @@
-import { Link, useNavigate, useParams } from "react-router";
-import { HiMiniChevronLeft } from "react-icons/hi2";
-import Input from "../components/Input";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { toast } from "react-toastify";
+import ButtonGreen from "../components/buttons/ButtonGreen";
+import ButtonPageBack from "../components/buttons/ButtonPageBack";
+import Input from "../components/Input";
 import { resetPasswordConfirm } from "../services/authService";
 import { isValidJWT } from "../utils/authUtils";
-import ButtonGreen from "../components/buttons/ButtonGreen";
-import { toast } from "react-toastify";
 
 function ResetPasswordConfirm() {
     document.title = "Resetar senha · Jogo do Glécio";
@@ -69,14 +69,9 @@ function ResetPasswordConfirm() {
 
     return (
         <div className="h-screen flex flex-col">
-            <Link
-                to="/login"
-                replace={true}
-                className="flex text-darkPurple items-center font-medium p-2 absolute top-8 left-14 max-sm:left-4"
-            >
-                <HiMiniChevronLeft size={24} />
+            <ButtonPageBack to="/login" replace={true}>
                 Retornar para login
-            </Link>
+            </ButtonPageBack>
             <div className="flex max-sm:items-start max-sm:mt-24 justify-center items-center flex-grow">
                 <main className="max-w-sm max-[405px]:max-w-[86%] max-sm:p-4 p-8 rounded-lg sm:border-2 border-gray">
                     <div className="space-y-2">
