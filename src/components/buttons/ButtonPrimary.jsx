@@ -6,7 +6,7 @@ const ButtonPrimary = ({ children, type, disabled, isLoading, onClick }) => {
 				type={type}
 				onClick={onClick}
 				disabled={disabled || isLoading}
-				className={`relative block w-full p-[2px] rounded-lg bg-gradient-to-b from-purple to-darkPurple ${
+				className={`relative block w-full p-[2px] rounded-lg bg-gradient-to-b from-purple to-darkPurple hover:brightness-110 transition-all duration-300 ease-in-out ${
 					disabled
 						? "opacity-70 cursor-not-allowed"
 						: isLoading
@@ -14,7 +14,7 @@ const ButtonPrimary = ({ children, type, disabled, isLoading, onClick }) => {
 						: ""
 				}`}
 			>
-				<div className="flex items-center justify-center w-full h-12 gap-2 p-3 font-medium text-white rounded-lg bg-gradient-to-b from-darkPurple to-purpleSecondary">
+				<div className="flex items-center justify-center w-full h-12 gap-2 p-3 font-medium text-white rounded-lg bg-gradient-to-b from-darkPurple to-purple ">
 					{isLoading ? (
 						<div className="flex items-center justify-center h-full">
 							<ImSpinner8 className="animate-spin" size={18} />
