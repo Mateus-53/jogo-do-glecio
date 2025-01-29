@@ -1,6 +1,6 @@
 import { ImSpinner8 } from "react-icons/im";
 
-const ButtonGreen = ({ children, type, disabled, isLoading, onClick }) => {
+const ButtonSuccess = ({ children, type, disabled, isLoading, onClick }) => {
     return (
 			<button
 				type={type}
@@ -26,4 +26,4 @@ const ButtonGreen = ({ children, type, disabled, isLoading, onClick }) => {
 			</button>
 		);
 };
-export default ButtonGreen;
+export default ButtonSuccess;

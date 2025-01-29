@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { HiOutlineInformationCircle, HiOutlinePlay, HiPencilSquare, HiStar } from "react-icons/hi2";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { Link, useNavigate } from "react-router";
-import ButtonGreen from "../components/buttons/ButtonGreen";
+import ButtonSuccess from "../components/buttons/ButtonSuccess";
 import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import Ranking from "../components/Ranking";
 import { isTokenExpiringSoon } from "../utils/authUtils";
@@ -92,10 +92,10 @@ function Home() {
 							<ButtonPrimary>
 								<HiOutlineInformationCircle className="w-6 h-6" /> Saiba mais
 							</ButtonPrimary>
-							<ButtonGreen type="submit">
+							<ButtonSuccess type="submit">
 								<HiOutlinePlay className="w-6 h-6" />
 								Jogar agora!
-							</ButtonGreen>
+							</ButtonSuccess>
 						</div>
 					</div>
 				</div>

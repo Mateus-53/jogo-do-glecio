@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
-import ButtonGreen from "../components/buttons/ButtonGreen";
+import ButtonSuccess from "../components/buttons/ButtonSuccess";
 import ButtonPageBack from "../components/buttons/ButtonPageBack";
 import Input from "../components/Input";
 import { resetPasswordConfirm } from "../services/authService";
@@ -32,10 +32,8 @@ function ResetPasswordConfirm() {
 
         if (newPassword !== confirmPassword) {
             setInputErrorIndicator(true);
-            setToast({
-                message: "As senhas não correspondem.",
-                type: "error",
-                isVisible: true,
+            toast.error("As senhas não correspondem", {
+                className: "bg-white",
             });
             return;
         }
@@ -100,9 +98,9 @@ function ResetPasswordConfirm() {
                             error={inputErrorIndicator}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
-                        <ButtonGreen isLoading={buttonIsLoading}>
+                        <ButtonSuccess isLoading={buttonIsLoading}>
                             Confirmar
-                        </ButtonGreen>
+                        </ButtonSuccess>
                     </form>
                 </main>
             </div>
