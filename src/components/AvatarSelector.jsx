@@ -71,7 +71,10 @@ const AvatarSelector = ({ avatarsList, selectedAvatarIndex, onSelect }) => {
                 className="flex overflow-x-scroll whitespace-nowrap mt-1 h-[70px] overflow-y-hidden scrollbar-hide"
             >
                 {isLoading ? (
-                    <SkeletonTheme baseColor="#EFEAFA" highlightColor="#E7E1F6">
+                    <SkeletonTheme
+                        baseColor="var(--skeleton-loading-base)"
+                        highlightColor="var(--skeleton-loading-highlight)"
+                    >
                         {Array.from({ length: 50 }).map((_, index) => (
                             <Skeleton
                                 key={index}

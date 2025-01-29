@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router";
-import { HiMiniChevronLeft } from "react-icons/hi2";
-import Modal from "../components/Modal";
-import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { HiMiniChevronLeft } from "react-icons/hi2";
+import { useNavigate } from "react-router";
+import Modal from "../components/Modal";
 
 function Game() {
     document.title = "Tabuada · Jogo do Glécio";

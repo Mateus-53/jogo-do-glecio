@@ -17,6 +17,11 @@
     --purple-dark-gray: #272135;
     --skeleton-loading-base: #efeafa;
     --skeleton-loading-highlight: #e7e1f6;
+
+    --toastify-toast-bd-radius: 12px !important;
+    --toastify-toast-background: var(--white) !important;
+    --toastify-color-error: var(--red) !important;
+    --toastify-color-success: var(--green) !important;
 }
 
 html,
@@ -26,6 +31,7 @@ body {
     color: var(--purple-gray);
     height: 100%;
 }
+
 @media not all and (max-width: 640px) {
     .scrollbar-hide {
         scrollbar-width: none;

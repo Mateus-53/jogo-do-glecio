@@ -12,7 +12,7 @@ function Modal({ title, message, type, onConfirm, onCancel }) {
             exit="exit"
             className="fixed top-0 left-0 bg-black/60 w-screen h-screen flex items-center justify-center px-5"
         >
-            <div className="bg-white rounded-2xl h-56 max-w-96 p-5 flex flex-col justify-between">
+            <div className="bg-white rounded-2xl h-56 max-w-[350px] p-5 flex flex-col justify-between">
                 <div>
                     <h3 className="text-3xl text-purpleGray font-extrabold">
                         {title}
