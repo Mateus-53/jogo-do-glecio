@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ResetPasswordConfirm from "../pages/ResetPasswordConfirm";
 import ResetPasswordRequest from "../pages/ResetPasswordRequest";
+import Game from "../pages/Game";
 
 function AnimatedRoutes() {
     const location = useLocation();
@@ -17,6 +18,7 @@ function AnimatedRoutes() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/play" element={<Game />} />
                 <Route
                     path="/password-reset/request"
                     element={<ResetPasswordRequest />}
