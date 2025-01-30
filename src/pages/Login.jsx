@@ -42,75 +42,68 @@ function Login() {
     };
 
     return (
-        <>
-            <motion.div
-                className="flex"
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                variants={fade()}
-            >
-                <main className="h-screen w-1/2 max-sm:w-full max-sm:items-start flex justify-center items-center">
-                    <div className="w-full space-y-16 max-sm:space-y-8 max-w-md bg-white p-8">
-                        <div className="flex flex-col gap-1">
-                            <p className="text-4xl font-black bg-gradient-to-b from-darkPurple to-purpleSecondary bg-clip-text text-transparent">
-                                Bem-vindo de volta
-                            </p>
-                            <span className="text-purpleDarkGray">
-                                Por favor, insira suas credenciais.
-                            </span>
-                        </div>
-                        <form className="space-y-12" onSubmit={handleSubmit}>
-                            <div className="space-y-3">
-                                <Input
-                                    label="E-mail"
-                                    type="email"
-                                    name="email"
-                                    required={true}
-                                    placeholder="glecio@prof.ce.gov.br"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                                <Input
-                                    label="Senha"
-                                    type="password"
-                                    name="password"
-                                    required={true}
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                />
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <ButtonPrimary
-                                    type="submit"
-                                    isLoading={buttonIsLoading}
-                                >
-                                    Acessar
-                                </ButtonPrimary>
-                                <Link
-                                    to="/password-reset/request"
-                                    className="text-purpleDarkGray self-end text-sm"
-                                >
-                                    Esqueceu sua senha?
-                                </Link>
-                            </div>
-                        </form>
-                        <span className="text-purpleDarkGray text-center block mt-4">
-                            Não possui um perfil?{" "}
-                            <Link
-                                to="/register"
-                                className="text-darkPurple font-medium"
-                            >
-                                Crie aqui.
-                            </Link>
-                        </span>
-                    </div>
-                </main>
+			<>
+				<motion.div
+					className="flex"
+					initial="initial"
+					animate="animate"
+					exit="exit"
+					variants={fade()}
+				>
+					<main className="flex items-center justify-center w-1/2 h-screen max-sm:w-full max-sm:items-start">
+						<div className="w-full max-w-md p-8 space-y-16 bg-white max-sm:space-y-8">
+							<div className="flex flex-col gap-1">
+								<p className="text-4xl font-black text-transparent bg-gradient-to-b from-darkPurple to-purpleSecondary bg-clip-text">
+									Bem-vindo de volta
+								</p>
+								<span className="text-purpleDarkGray">
+									Por favor, insira suas credenciais.
+								</span>
+							</div>
+							<form className="space-y-12" onSubmit={handleSubmit}>
+								<div className="space-y-3">
+									<Input
+										label="E-mail"
+										type="email"
+										name="email"
+										required={true}
+										placeholder="Insira seu email"
+										onChange={(e) => setEmail(e.target.value)}
+									/>
+									<Input
+										label="Senha"
+										type="password"
+										name="password"
+										placeholder="Insira sua senha"
+										required={true}
+										onChange={(e) => setPassword(e.target.value)}
+									/>
+								</div>
+								<div className="flex flex-col gap-2">
+									<ButtonPrimary type="submit" isLoading={buttonIsLoading}>
+										Acessar
+									</ButtonPrimary>
+									<Link
+										to="/password-reset/request"
+										className="self-end text-sm text-purpleDarkGray"
+									>
+										Esqueceu sua senha?
+									</Link>
+								</div>
+							</form>
+							<span className="block mt-4 text-center text-purpleDarkGray">
+								Não possui um perfil?{" "}
+								<Link to="/register" className="font-medium text-darkPurple">
+									Crie aqui.
+								</Link>
+							</span>
+						</div>
+					</main>
 
-                <div className="h-screen w-1/2 max-sm:hidden bg-gradient-to-b from-darkPurple to-purple"></div>
-            </motion.div>
-        </>
-    );
+					<div className="w-1/2 h-screen max-sm:hidden bg-gradient-to-b from-darkPurple to-purple"></div>
+				</motion.div>
+			</>
+		);
 }
 
 export default Login;
