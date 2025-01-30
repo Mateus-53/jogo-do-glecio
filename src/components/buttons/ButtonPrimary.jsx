@@ -14,7 +14,7 @@ const ButtonPrimary = ({ children, type, disabled, isLoading, onClick }) => {
 						: ""
 				}`}
 			>
-				<div className="flex items-center justify-center w-full h-12 gap-2 p-3 font-medium text-white rounded-lg bg-gradient-to-b from-darkPurple to-purple ">
+				<div className="flex items-center justify-center w-full h-12 gap-2 p-3 font-medium text-white rounded-lg bg-gradient-to-b from-darkPurple to-purpleSecondary ">
 					{isLoading ? (
 						<div className="flex items-center justify-center h-full">
 							<ImSpinner8 className="animate-spin" size={18} />
