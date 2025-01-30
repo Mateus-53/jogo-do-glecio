@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
+import { HiPencilSquare } from "react-icons/hi2";
 
 const Input = ({
     name,
@@ -11,6 +12,7 @@ const Input = ({
     required,
     onChange,
     disabled,
+    isEditing,
 }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -38,7 +40,7 @@ const Input = ({
                     disabled={disabled}
                     className={`py-[10px] pl-3 pr-10 rounded-lg border-2 text-purpleGray outline-none bg-transparent focus:border-purple w-full ${
                         error ? "border-red-500" : "border-[#E2DDEB]"
-                    }`}
+                    } ${disabled ? "opacity-70 cursor-not-allowed" : ""}`}
                 />
                 {isPassword && (
                     <button
@@ -59,6 +61,16 @@ const Input = ({
                         ) : (
                             <HiEye className="w-5 h-5" title="Mostrar senha" />
                         )}
+                    </button>
+                )}
+                {isEditing && (
+                    <button
+                        type="button"
+                        onClick={``}
+                        className="absolute transform -translate-y-1/2 right-3 top-1/2 text-purpleGray"
+                        aria-label="Editar"
+                    >
+                        <HiPencilSquare className="w-5 h-5" />
                     </button>
                 )}
             </div>

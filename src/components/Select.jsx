@@ -24,14 +24,23 @@ const Select = ({ name, label, values, selectedValue, onSelect }) => {
                     id={`select-${name}`}
                     name={name}
                     value={selectedOption}
-                    className="px-[10px] py-3 cursor-pointer rounded-lg border-2 text-purpleGray border-[#E2DDEB] outline-none bg-transparent focus:border-purple appearance-none w-full"
+                    disabled={values.length === 0}
+                    className={`px-[10px] py-3 cursor-pointer rounded-lg border-2 text-purpleGray border-[#E2DDEB] outline-none bg-transparent focus:border-purple appearance-none w-full ${
+                        values.length === 0 ? "opacity-70 cursor-wait" : ""
+                    }`}
                     onChange={handleChange}
                 >
-                    {values.map((value, i) => (
-                        <option key={i} value={value.id}>
-                            {value.name}
+                    {values.length > 0 ? (
+                        values.map((value, i) => (
+                            <option key={i} value={value.id}>
+                                {value.name}
+                            </option>
+                        ))
+                    ) : (
+                        <option disabled selected>
+                            Carregando...
                         </option>
-                    ))}
+                    )}
                 </select>
                 <HiChevronDown className="absolute top-1/2 right-3 transform -translate-y-1/2 pointer-events-none text-purpleGray" />
             </div>

@@ -49,7 +49,9 @@ export const updateUser = async (newData) => {
 
         const newInfo = {
             name: data.name,
+            courseId: data.course.id,
             course: data.course.name,
+            avatarId: data.avatar.id,
             avatarDefault: data.avatar.path_default,
             avatarMedium: data.avatar.path_256px,
             avatarLow: data.avatar.path_128px,

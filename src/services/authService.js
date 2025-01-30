@@ -27,7 +27,9 @@ export const createUser = async (userData) => {
         setLocalUserInfo({
             id: data.user.id,
             name: data.user.name,
+            courseId: data.user.course_id,
             course: data.user.course.name,
+            avatarId: data.user.avatar_id,
             avatarDefault: data.user.avatar.path_default,
             avatarMedium: data.user.avatar.path_256px,
             avatarLow: data.user.avatar.path_128px,
@@ -64,7 +66,9 @@ export const loginUser = async (credentials) => {
         setLocalUserInfo({
             id: data.user.id,
             name: data.user.name,
+            courseId: data.user.course_id,
             course: data.user.course.name,
+            avatarId: data.user.avatar_id,
             avatarDefault: data.user.avatar.path_default,
             avatarMedium: data.user.avatar.path_256px,
             avatarLow: data.user.avatar.path_128px,

@@ -6,79 +6,132 @@ import ButtonPageBack from "../components/buttons/ButtonPageBack";
 import ButtonSuccess from "../components/buttons/ButtonSuccess";
 import Input from "../components/Input";
 import Select from "../components/Select";
+import { toast } from "react-toastify";
+import { getAvatarsList, getCoursesList } from "../services/userService";
 
 function EditProfile() {
-	document.title = "Editar perfil · Jogo do Glécio";
-	const [userInfo, setUserInfo] = useState({});
-	const [userData, setUserData] = useState({
-		avatar_id: 1,
-		name: null,
-		course_id: null,
-		email: null,
-		password: null,
-	});
+    document.title = "Editar perfil · Jogo do Glécio";
+    const [userInfo, setUserInfo] = useState({});
 
-	useEffect(() => {
-		const info = getLocalUserInfo();
-		setUserInfo(info);
-	}, []);
+    const [avatarsList, setAvatarsList] = useState([]);
+    const [coursesList, setCoursesList] = useState([]);
 
-	return (
-		<motion.div
-			variants={scrollFromRight()}
-			initial="initial"
-			animate="animate"
-			exit="exit"
-		>
-			<main className="flex flex-col max-w-6xl gap-6 p-10 lg:gap-16 md:mx-auto">
-				<ButtonPageBack to="/" replace={true}>
-					Retornar
-				</ButtonPageBack>
-				<div className="flex flex-col gap-6">
-					<img
-						src={userInfo.avatarDefault}
-						alt={`${userInfo.name ?? "Anônimo"}'s avatar`}
-						className="rounded-full pointer-events-none select-none w-28 bg-skeletonLoadingBase"
-					/>
-					<Input
-						label="Nome"
-						name="name"
-						type="text"
-						placeholder={`${userInfo.name ?? "Anônimo"}`}
-						disabled={true}
-						onChange={(e) => {
-							setUserData((prev) => ({
-								...prev,
-								name: e.target.value,
-							}));
-						}}
-					/>
+    const [userData, setUserData] = useState({
+        avatar_id: 1,
+        name: null,
+        course_id: null,
+    });
 
-					<Input
-						label="E-mail"
-						name="email"
-						type="email"
-						placeholder={`${userInfo.email ?? ""}`}
-						disabled={true}
-						onChange={(e) =>
-							setUserData((prev) => ({
-								...prev,
-								email: e.target.value,
-							}))
-						}
-					/>
-					<Input
-						label="Senha"
-						name="password"
-						placeholder="Redefenir Senha"
-						disabled={true}
-					/>
+    useEffect(() => {
+        const info = getLocalUserInfo();
+        setUserInfo(info);
+    }, []);
 
-					<ButtonSuccess>Salvar Alterações</ButtonSuccess>
-				</div>
-			</main>
-		</motion.div>
-	);
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const courses = await getCoursesList();
+                setCoursesList(courses);
+
+                if (courses.length > 0) {
+                    setUserData((prev) => ({
+                        ...prev,
+                        course_id: courses[0].id,
+                    }));
+                }
+            } catch (error) {
+                toast.error(
+                    error.message ||
+                        "Ocorreu um erro ao carregar a lista de cursos",
+                    {
+                        className: "bg-white",
+                    }
+                );
+            }
+        };
+
+        const fetchAvatars = async () => {
+            try {
+                const avatars = await getAvatarsList();
+                setAvatarsList(avatars);
+            } catch (error) {
+                toast.error(
+                    error.message || "Ocorreu um erro ao carregar os avatares",
+                    {
+                        className: "bg-white",
+                    }
+                );
+            }
+        };
+
+        //fetchAvatars();
+        fetchCourses();
+    }, []);
+
+    return (
+        <motion.div
+            variants={scrollFromRight()}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+        >
+            <main className="flex flex-col max-w-6xl gap-6 p-10 lg:gap-16 md:mx-auto">
+                <ButtonPageBack to="/" replace={true}>
+                    Retornar
+                </ButtonPageBack>
+                <div className="flex flex-col gap-6">
+                    <img
+                        src={userInfo.avatarDefault}
+                        alt={`${userInfo.name ?? "Anônimo"}'s avatar`}
+                        className="rounded-full pointer-events-none select-none w-28 bg-skeletonLoadingBase"
+                    />
+
+                    <Input
+                        label="Nome"
+                        name="name"
+                        type="text"
+                        value={`${userInfo.name ?? "Anônimo"}`}
+                        isEditing={true}
+                        disabled={true}
+                        onChange={(e) => {
+                            setUserData((prev) => ({
+                                ...prev,
+                                name: e.target.value,
+                            }));
+                        }}
+                    />
+
+                    <Select
+                        label="Turma"
+                        name="courses"
+                        values={coursesList}
+                        selectedValue={
+                            userInfo.courseId
+                                ? userInfo.courseId
+                                : coursesList.length > 0
+                                ? coursesList[0]?.id
+                                : null
+                        }
+                        onSelect={(avatarId) => {
+                            setUserData((prev) => ({
+                                ...prev,
+                                course_id: avatarId,
+                            }));
+                        }}
+                    />
+
+                    <Input
+                        label="Senha"
+                        name="password"
+                        placeholder="Redefenir Senha"
+                        disabled={true}
+                    />
+
+                    <ButtonSuccess>Salvar Alterações</ButtonSuccess>
+                </div>
+            </main>
+        </motion.div>
+    );
 }
 
 export default EditProfile;

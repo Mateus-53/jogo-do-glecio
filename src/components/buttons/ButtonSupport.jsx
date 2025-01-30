@@ -6,7 +6,7 @@ const ButtonSupport = ({ children, type, disabled, isLoading, onClick }) => {
             type={type}
             onClick={onClick}
             disabled={disabled || isLoading}
-            className={`p-3 h-12 w-full border-2 text-darkGray border-darkGray/90 rounded-lg font-medium flex items-center justify-center gap-2 ${
+            className={`p-3 h-12 w-full text-darkGray border border-grayColor rounded-lg font-medium flex items-center justify-center gap-2 ${
                 disabled
                     ? "opacity-70 cursor-not-allowed"
                     : isLoading
