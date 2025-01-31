@@ -9,7 +9,6 @@ import { resetPasswordRequest } from "../services/authService";
 
 function ResetPasswordRequest() {
     document.title = "Esqueceu sua senha? · Jogo do Glécio";
-
     const [email, setEmail] = useState("");
     const [time, setTime] = useState(0);
     const [buttonIsLoading, setButtonIsLoading] = useState(false);

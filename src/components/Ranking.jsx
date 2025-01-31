@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { HiFire, HiStar, HiArrowPath, HiTrash } from "react-icons/hi2";
+import { HiFire, HiStar, HiArrowPath } from "react-icons/hi2";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { toast } from "react-toastify";
 import { fade } from "../animations/pageAnimations";
@@ -71,6 +71,9 @@ function Ranking() {
     };
 
     const updateRanking = async () => {
+        if (isRankingUpdating) return;
+        setIsRankingUpdating(true);
+
         try {
             if (activeTab === "normal") {
                 setRankingNormalList([]);
@@ -85,6 +88,8 @@ function Ranking() {
                     "Erro ao atualizar ranking. Tente novamente mais tarde",
                 { className: "bg-white" }
             );
+        } finally {
+            setIsRankingUpdating(false)
         }
     };
 
@@ -142,7 +147,11 @@ function Ranking() {
                 className="flex items-center justify-center w-full h-12 gap-2 p-3 border rounded-lg font text-darkGray border-grayColor"
                 onClick={updateRanking}
             >
-                <HiArrowPath className={`w-5 h-5 ${isRankingUpdating ? "animate-spin" : ""}`} />
+                <HiArrowPath
+                    className={`w-5 h-5 ${
+                        isRankingUpdating ? "animate-spin" : ""
+                    }`}
+                />
                 Atualizar
             </ButtonSupport>
             <div className="flex gap-5">

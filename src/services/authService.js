@@ -17,7 +17,7 @@ export const createUser = async (userData) => {
             const error = new Error(
                 body.message || "Erro no registro de usuário"
             );
-            error.statusCode = response.status_code || 500;
+            error.statusCode = body.status_code || 500;
 
             throw error;
         }
@@ -56,7 +56,7 @@ export const loginUser = async (credentials) => {
 
         if (!response.ok || body.status_code != 200) {
             const error = Error(body.message || "Erro na autenticação");
-            error.statusCode = response.status_code || 500;
+            error.statusCode = body.status_code || 500;
 
             throw error;
         }

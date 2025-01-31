@@ -6,6 +6,7 @@ const Input = ({
     name,
     label,
     placeholder,
+    maxLength,
     type,
     value,
     error,
@@ -35,6 +36,7 @@ const Input = ({
                     name={name}
                     value={value}
                     placeholder={placeholder}
+                    maxLength={maxLength}
                     onChange={onChange}
                     required={required}
                     disabled={disabled}
@@ -74,6 +76,7 @@ const Input = ({
                     </button>
                 )}
             </div>
+            {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
     );
 };
