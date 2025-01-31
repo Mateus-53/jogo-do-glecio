@@ -66,14 +66,14 @@ function ResetPasswordConfirm() {
     };
 
     return (
-        <div className="h-screen flex flex-col">
-            <ButtonPageBack to="/login" replace={true}>
+        <div className="flex flex-col h-screen">
+            <ButtonPageBack to="/login" replace={true} absolute={true}>
                 Retornar para login
             </ButtonPageBack>
-            <div className="flex max-sm:items-start max-sm:mt-24 justify-center items-center flex-grow">
+            <div className="flex items-center justify-center flex-grow max-sm:items-start max-sm:mt-24">
                 <main className="max-w-sm max-[405px]:max-w-[86%] max-sm:p-4 p-8 rounded-lg sm:border-2 border-gray">
                     <div className="space-y-2">
-                        <p className="text-4xl text-darkPurple font-black">
+                        <p className="text-4xl font-black text-darkPurple">
                             Resete sua senha
                         </p>
                         <p className="text-purpleGray">
@@ -81,7 +81,7 @@ function ResetPasswordConfirm() {
                             vai esquecer de novo, viu?
                         </p>
                     </div>
-                    <form className="space-y-4 mt-6" onSubmit={handleSubmit}>
+                    <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
                         <Input
                             label="Nova senha"
                             type="password"

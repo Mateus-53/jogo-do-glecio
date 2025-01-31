@@ -54,19 +54,19 @@ function ResetPasswordRequest() {
     return (
         <div className="overflow-hidden">
             <motion.div
-                className="h-screen flex flex-col"
+                className="flex flex-col h-screen"
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 variants={scrollFromRight()}
             >
-                <ButtonPageBack to="/login" replace={true}>
+                <ButtonPageBack to="/login" replace={true} absolute={true}>
                     Retornar
                 </ButtonPageBack>
-                <div className="flex max-sm:items-start max-sm:mt-24 justify-center items-center flex-grow">
+                <div className="flex items-center justify-center flex-grow max-sm:items-start max-sm:mt-24">
                     <main className="max-w-sm max-[405px]:max-w-[86%] max-sm:p-4 p-8 rounded-lg sm:border-2 border-gray">
                         <div className="space-y-2">
-                            <p className="text-4xl text-darkPurple font-black">
+                            <p className="text-4xl font-black text-darkPurple">
                                 Esqueceu sua senha?
                             </p>
                             <p className="text-purpleGray">
@@ -75,7 +75,7 @@ function ResetPasswordRequest() {
                             </p>
                         </div>
                         <form
-                            className="space-y-4 mt-6"
+                            className="mt-6 space-y-4"
                             onSubmit={handleSubmit}
                         >
                             <Input
