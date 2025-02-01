@@ -75,7 +75,7 @@ function EditProfile() {
             animate="animate"
             exit="exit"
         >
-            <main className="flex flex-col max-w-6xl gap-6 p-10 lg:gap-16 md:mx-auto">
+            <main className="flex flex-col max-w-3xl gap-6 p-10 lg:gap-16 md:mx-auto">
                 <ButtonPageBack to="/" replace={true}>
                     Retornar
                 </ButtonPageBack>

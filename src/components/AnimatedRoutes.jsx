@@ -2,12 +2,13 @@ import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router";
 import About from "../pages/About";
 import EditProfile from "../pages/EditProfile";
+import Game from "../pages/Game";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Ranking from "../pages/Ranking";
 import Register from "../pages/Register";
 import ResetPasswordConfirm from "../pages/ResetPasswordConfirm";
 import ResetPasswordRequest from "../pages/ResetPasswordRequest";
-import Game from "../pages/Game";
 
 function AnimatedRoutes() {
     const location = useLocation();
@@ -29,6 +30,7 @@ function AnimatedRoutes() {
                 />
                 <Route path="/edit-profile" element={<EditProfile />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/ranking" element={<Ranking />} />
             </Routes>
         </AnimatePresence>
     );

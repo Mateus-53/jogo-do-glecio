@@ -16,6 +16,8 @@ import { isTokenExpiringSoon } from "../utils/authUtils";
 import { getLocalUserInfo } from "../utils/userUtils";
 import { logoutUser } from "../services/authService";
 import ButtonSupport from "../components/buttons/ButtonSupport";
+import {motion} from 'framer-motion'
+import { fade } from "../animations/pageAnimations";
 
 function Home() {
     document.title = "Início · Jogo do Glécio";
@@ -51,7 +53,13 @@ function Home() {
     }, []);
 
     return (
-        <main className="flex max-w-6xl gap-6 p-10 lg:gap-24 md:mx-auto">
+        <motion.main
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={fade()}
+            className="flex max-w-6xl gap-6 p-10 lg:gap-24 md:mx-auto"
+        >
             <div className="flex flex-col w-full gap-32 md:w-1/2 lg:w-2/3">
                 {/* Profile header */}
                 <div className="flex items-center gap-8 md:gap-4 lg:gap-8">
@@ -72,7 +80,7 @@ function Home() {
 
                     <div className="w-full">
                         <p className="text-base text-purpleGray">
-                            Seja bem-vindo,
+                            Seja bem-vindo(a),
                         </p>
                         <p className="text-4xl font-black leading-8 text-darkPurple">
                             {userInfo.name ?? "Anônimo"}
@@ -110,26 +118,32 @@ function Home() {
                         quos, hic optio veritatis error vel maiores dolore magni
                         blanditiis dolorum!
                     </p>
-                    <div className="flex gap-3">
-                        <ButtonSuccess type="submit">
-                            <HiOutlinePlay className="w-6 h-6" />
-                            Jogar agora!
-                        </ButtonSuccess>
+                    <div className="flex gap-3 max-sm:flex-col">
                         {windowWidth < 768 && (
-                            <ButtonSupport>
-                                <HiTrophy className="w-6 h-6" />
-                                Ranking
-                            </ButtonSupport>
+                            <Link to="/ranking" className="w-full">
+                                <ButtonSupport>
+                                    <HiTrophy className="w-6 h-6" />
+                                    Ranking
+                                </ButtonSupport>
+                            </Link>
                         )}
-                        <ButtonPrimary>
-                            <HiOutlineInformationCircle className="w-6 h-6" />{" "}
-                            Saiba mais
-                        </ButtonPrimary>
+                        <Link to="/play" className="w-full">
+                            <ButtonSuccess type="submit">
+                                <HiOutlinePlay className="w-6 h-6" />
+                                Jogar agora!
+                            </ButtonSuccess>
+                        </Link>
+                        <Link to="/about" className="w-full">
+                            <ButtonPrimary>
+                                <HiOutlineInformationCircle className="w-6 h-6" />{" "}
+                                Saiba mais
+                            </ButtonPrimary>
+                        </Link>
                     </div>
                 </div>
             </div>
             {windowWidth >= 768 && <Ranking />}
-        </main>
+        </motion.main>
     );
 }
 

@@ -38,25 +38,6 @@ export function scrollFromLeft() {
     };
 }
 
-export function scrollFromBottom() {
-    return {
-        initial: { y: "-100vh", opacity: 0 },
-        animate: {
-            y: 0,
-            opacity: 1,
-            transition: {
-                duration: 0.4,
-                ease: "easeInOut",
-            },
-        },
-        exit: {
-            y: "-100vh",
-            opacity: 0,
-            transition: { duration: 0.26, ease: "easeInOut" },
-        },
-    };
-}
-
 export function fade() {
     return {
         initial: { opacity: 0 },

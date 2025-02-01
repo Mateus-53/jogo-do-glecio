@@ -3,6 +3,8 @@ import { useState } from "react";
 import { HiMiniChevronLeft } from "react-icons/hi2";
 import { useNavigate } from "react-router";
 import Modal from "../components/Modal";
+import { motion } from "framer-motion";
+import { scrollFromRight } from "../animations/pageAnimations";
 
 function Game() {
     document.title = "Tabuada · Jogo do Glécio";
@@ -20,7 +22,12 @@ function Game() {
     };
 
     return (
-        <div>
+        <motion.div
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={scrollFromRight()}
+        >
             <span
                 onClick={() => setShowModal(true)}
                 className="flex cursor-pointer text-darkPurple items-center font-medium p-2 absolute top-8 left-14 max-sm:left-4"
@@ -39,7 +46,7 @@ function Game() {
                     />
                 )}
             </AnimatePresence>
-        </div>
+        </motion.div>
     );
 }
 export default Game;
