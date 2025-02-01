@@ -140,8 +140,7 @@ function Ranking() {
             <h2 className="text-2xl font-bold">Ranking</h2>
             <p className="text-base">
                 Veja os melhores jogadores competindo para alcançar as maiores
-                pontuações no jogo de tabuada. Será que você consegue superar
-                seus amigos e chegar ao topo?
+                pontuações no jogo de tabuada.
             </p>
             <ButtonSupport
                 className="flex items-center justify-center w-full h-12 gap-2 p-3 border rounded-lg font text-darkGray border-grayColor"

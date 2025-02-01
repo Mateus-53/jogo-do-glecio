@@ -1,23 +1,20 @@
+import { motion } from "framer-motion";
+import { Info, LogOut, Trophy, UserRoundPen } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
-    HiOutlineInformationCircle,
     HiOutlinePlay,
-    HiPencilSquare,
-    HiStar,
-    HiArrowRightStartOnRectangle,
-    HiTrophy,
+    HiStar
 } from "react-icons/hi2";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { Link, useNavigate } from "react-router";
-import ButtonSuccess from "../components/buttons/ButtonSuccess";
+import { fade } from "../animations/pageAnimations";
 import ButtonPrimary from "../components/buttons/ButtonPrimary";
+import ButtonSuccess from "../components/buttons/ButtonSuccess";
+import ButtonSupport from "../components/buttons/ButtonSupport";
 import Ranking from "../components/Ranking";
+import { logoutUser } from "../services/authService";
 import { isTokenExpiringSoon } from "../utils/authUtils";
 import { getLocalUserInfo } from "../utils/userUtils";
-import { logoutUser } from "../services/authService";
-import ButtonSupport from "../components/buttons/ButtonSupport";
-import {motion} from 'framer-motion'
-import { fade } from "../animations/pageAnimations";
 
 function Home() {
     document.title = "Início · Jogo do Glécio";
@@ -90,18 +87,20 @@ function Home() {
                                 <HiStar className="w-5 h-5" />
                                 Maior pontuação: {userInfo.maxScore ?? "00"}
                             </p>
-                            <div className="flex items-center gap-1 text-purpleGray">
-                                <Link to="/edit-profile">
-                                    <HiPencilSquare
+                            <div className="flex items-center gap-2 text-purpleGray">
+                                <Link to="/edit-profile" title="Editar perfil">
+                                    <UserRoundPen
+                                        strokeWidth={1.8}
                                         className="w-5 h-5 transition-all ease-in-out hover:scale-110"
-                                        title="Editar perfil"
                                     />
                                 </Link>
-                                <HiArrowRightStartOnRectangle
-                                    className="w-5 h-5 transition-all ease-in-out cursor-pointer hover:scale-110"
-                                    onClick={logoutUser}
-                                    title="Sair"
-                                />
+                                <span title="Sair">
+                                    <LogOut
+                                        strokeWidth={1.8}
+                                        className="w-5 h-5 transition-all ease-in-out cursor-pointer hover:scale-110"
+                                        onClick={logoutUser}
+                                    />
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -122,7 +121,7 @@ function Home() {
                         {windowWidth < 768 && (
                             <Link to="/ranking" className="w-full">
                                 <ButtonSupport>
-                                    <HiTrophy className="w-6 h-6" />
+                                    <Trophy className="w-6 h-6" strokeWidth={1.6}/>
                                     Ranking
                                 </ButtonSupport>
                             </Link>
@@ -135,7 +134,7 @@ function Home() {
                         </Link>
                         <Link to="/about" className="w-full">
                             <ButtonPrimary>
-                                <HiOutlineInformationCircle className="w-6 h-6" />{" "}
+                                <Info className="w-6 h-6" strokeWidth={1.6}/>{" "}
                                 Saiba mais
                             </ButtonPrimary>
                         </Link>
