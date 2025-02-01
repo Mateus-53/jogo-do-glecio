@@ -36,14 +36,6 @@ function About() {
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
                         <Developer
-                            name="Hiago Bernardo"
-                            role="UX Writer"
-                            avatarUrl="https://avatars.githubusercontent.com/u/105991097?s=256&v=4"
-                            instagramUrl="https://www.instagram.com/hiago.bernardoo/"
-                            githubUrl="https://github.com/hi-bernardo"
-                            linkedinUrl=""
-                        />
-                        <Developer
                             name="Lucas Davi"
                             role="Desenvolvedor Front-End"
                             avatarUrl="https://avatars.githubusercontent.com/u/116373520?s=256&v=4"
@@ -93,10 +85,10 @@ const Developer = ({
                 className="rounded-full bg-skeletonLoadingBase w-24 h-24 drop-shadow-xl"
             />
             <div className="flex flex-col">
-                <p className="text-3xl font-medium text-purpleDarkGray">
+                <p className="text-2xl font-medium text-purpleDarkGray">
                     {name}
                 </p>
-                <span className="text-purpleDarkGray">
+                <span>
                     {window.innerWidth < 768 ? mobileRoleText[0] : role}
                 </span>
                 <div className="flex gap-2">
@@ -106,7 +98,7 @@ const Developer = ({
                         rel="noopener noreferrer"
                         title="Instagram"
                     >
-                        <FaInstagram className="w-6 h-6 text-purpleDarkGray transition-all ease-in-out hover:scale-110" />
+                        <FaInstagram className="w-6 h-6 hover:text-purpleDarkGray transition-all ease-in-out hover:scale-110" />
                     </a>
                     <a
                         href={githubUrl}
@@ -114,7 +106,7 @@ const Developer = ({
                         rel="noopener noreferrer"
                         title="Github"
                     >
-                        <FaGithub className="w-6 h-6 text-purpleDarkGray transition-all ease-in-out hover:scale-110" />
+                        <FaGithub className="w-6 h-6 hover:text-purpleDarkGray transition-all ease-in-out hover:scale-110" />
                     </a>
                     <a
                         href={linkedinUrl}
@@ -122,7 +114,7 @@ const Developer = ({
                         rel="noopener noreferrer"
                         title="LinkedIn"
                     >
-                        <FaLinkedin className="w-6 h-6 text-purpleDarkGray transition-all ease-in-out hover:scale-110" />
+                        <FaLinkedin className="w-6 h-6 hover:text-purpleDarkGray transition-all ease-in-out hover:scale-110" />
                     </a>
                 </div>
             </div>
