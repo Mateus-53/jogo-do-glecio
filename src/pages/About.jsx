@@ -18,12 +18,12 @@ function About() {
             <ButtonPageBack to="/" replace={true} absolute={true}>
                 Retornar
             </ButtonPageBack>
-            <main className="max-w-4xl p-8 mx-auto space-y-8 mt-16">
+            <main className="max-w-4xl mt-16 h-full mx-auto space-y-8 content-center">
                 <div className="space-y-4">
                     <h2 className="text-4xl text-darkPurple font-black">
                         Sobre o projeto
                     </h2>
-                    <p>
+                    <p className="text-purpleGray">
                         Projeto desenvolvido para auxiliar os alunos da EEEP
                         Elsa Maria Porto Costa Lima a dominarem a tabuada e,
                         assim, tirarem uma boa nota nas provas do professor
@@ -34,7 +34,7 @@ function About() {
                     <h2 className="text-4xl text-darkPurple font-black">
                         Desenvolvedores
                     </h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
+                    <div className="flex flex-col gap-5">
                         <Developer
                             name="Lucas Davi"
                             role="Desenvolvedor Front-End"
@@ -82,7 +82,7 @@ const Developer = ({
             <img
                 src={avatarUrl}
                 alt={`Imagem de ${name}`}
-                className="rounded-full bg-skeletonLoadingBase w-24 h-24 drop-shadow-xl"
+                className="rounded-full bg-skeletonLoadingBase w-28 h-28"
             />
             <div className="flex flex-col">
                 <p className="text-2xl font-medium text-purpleDarkGray">
