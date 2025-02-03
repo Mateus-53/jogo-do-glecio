@@ -2,26 +2,28 @@ import { ImSpinner8 } from "react-icons/im";
 
 const ButtonSupport = ({ children, type, disabled, isLoading, onClick }) => {
     return (
-        <button
-            type={type}
-            onClick={onClick}
-            disabled={disabled || isLoading}
-            className={`p-3 h-12 w-full text-darkGray border border-grayColor rounded-lg font-medium flex items-center justify-center gap-2 shadow-sm ${
-                disabled
-                    ? "opacity-70 cursor-not-allowed"
-                    : isLoading
-                    ? "opacity-70 cursor-wait"
-                    : ""
-            }`}
-        >
-            {isLoading ? (
-                <div className="flex items-center justify-center h-full">
-                    <ImSpinner8 className="animate-spin" size={18} />
-                </div>
-            ) : (
-                children
-            )}
-        </button>
-    );
+			<button
+				type={type}
+				onClick={onClick}
+				disabled={disabled || isLoading}
+				className={`relative block w-full p-[2px] rounded-lg bg-gradient-to-b from-[#716C7B] to-[#5D5866] hover:brightness-110 transition-all duration-300 ease-in-out ${
+					disabled
+						? "opacity-70 cursor-not-allowed"
+						: isLoading
+						? "opacity-70 cursor-wait"
+						: ""
+				}`}
+			>
+				<div className="flex items-center justify-center w-full h-12 gap-2 p-3 font-medium text-white rounded-lg bg-gradient-to-b from-[#5D5866] to-[#716C7B] ">
+					{isLoading ? (
+						<div className="flex items-center justify-center h-full">
+							<ImSpinner8 className="animate-spin" size={18} />
+						</div>
+					) : (
+						children
+					)}
+				</div>
+			</button>
+		);
 };
 export default ButtonSupport;
