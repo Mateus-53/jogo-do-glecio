@@ -137,7 +137,7 @@ function RankingList() {
 
     return (
         <>
-            <div className="flex flex-col gap-3 p-8 max-sm:pt-20 md:p-10 md:border rounded-2xl max-sm:w-screen max-sm:h-screen md:shadow-sm min-w-[350px] lg:min-w-[380px] md:w-1/2 text-darkGray border-grayColor lg:w-1/3">                
+            <div className="flex flex-col gap-3 p-8 max-md:pt-20 md:p-10 md:border rounded-2xl max-sm:w-screen max-sm:h-screen md:shadow-sm min-w-[350px] lg:min-w-[380px] md:w-1/2 text-darkGray border-grayColor lg:w-1/3">                
                 <h2 className="text-2xl font-bold">Ranking</h2>
                 <p className="text-base">
                     Veja os melhores jogadores competindo para alcançar as

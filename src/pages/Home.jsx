@@ -120,7 +120,7 @@ function Home() {
 							{windowWidth < 768 && (
 								<Link to="/ranking" className="w-full">
 									<ButtonSupport invertedContent={true}>
-										<Trophy className="w-6 h-6" strokeWidth={1.6} />
+										<Trophy className="w-6 h-6" strokeWidth={1.5} />
 										Ranking
 									</ButtonSupport>
 								</Link>

@@ -6,7 +6,7 @@ function ButtonPageBack({ to, replace, children, altColor, absolute }) {
 		<Link
 			to={to}
 			replace={replace}
-			className={` flex items-center font-medium text-darkPurple rounded-lg gap-1 w-fit ${
+			className={`flex items-center font-medium text-darkPurple rounded-lg gap-1 w-fit ${
 				altColor ? "text-white border border-white p-2" : "text-darkPurple p-0"
 			}  ${absolute && "absolute top-8 left-14 max-xl:left-4"}`}
 		>

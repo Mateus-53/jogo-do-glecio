@@ -75,10 +75,10 @@ function EditProfile() {
             animate="animate"
             exit="exit"
         >
-            <main className="flex flex-col max-w-3xl gap-6 p-10 lg:gap-16 md:mx-auto">
-                <ButtonPageBack to="/" replace={true}>
-                    Retornar
-                </ButtonPageBack>
+            <ButtonPageBack to="/" replace={true} absolute={true}>
+                Retornar
+            </ButtonPageBack>
+            <main className="flex flex-col max-w-3xl gap-6 p-6 pt-20 md:pt-10 md:p-10 lg:gap-16 md:mx-auto">
                 <div className="flex flex-col gap-6">
                     <img
                         src={userInfo.avatarDefault}

@@ -1,6 +1,8 @@
 const screenSize = window.innerWidth;
 
 export function scrollFromRight() {
+    document.body.classList.add("no-scroll");
+
     return {
         initial: { x: "100vw", opacity: 0 },
         animate: {
@@ -9,6 +11,10 @@ export function scrollFromRight() {
             transition: {
                 duration: screenSize < 980 ? 0.28 : 0.5,
                 ease: "easeInOut",
+            },
+            overflow: "hidden",
+            onComplete: () => {
+                document.body.classList.remove("no-scroll");
             },
         },
         exit: {

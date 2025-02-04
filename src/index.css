@@ -32,6 +32,10 @@ body {
     height: 100%;
 }
 
+.no-scroll {
+    overflow: hidden;
+}
+
 @media not all and (max-width: 640px) {
     .scrollbar-hide {
         scrollbar-width: none;
