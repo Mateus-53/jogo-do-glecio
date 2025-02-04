@@ -20,7 +20,7 @@ function About() {
             </ButtonPageBack>
             <main className="max-w-4xl mt-16 h-full mx-auto space-y-8 content-center">
                 <div className="space-y-4">
-                    <h2 className="text-4xl text-darkPurple font-black">
+                    <h2 className="text-3xl text-darkPurple font-black">
                         Sobre o projeto
                     </h2>
                     <p className="text-purpleGray">
@@ -31,7 +31,7 @@ function About() {
                     </p>
                 </div>
                 <div className="space-y-4">
-                    <h2 className="text-4xl text-darkPurple font-black">
+                    <h2 className="text-3xl text-darkPurple font-black">
                         Desenvolvedores
                     </h2>
                     <div className="flex flex-col gap-5">

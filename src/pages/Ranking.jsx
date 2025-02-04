@@ -6,11 +6,9 @@ import { scrollFromRight } from "../animations/pageAnimations";
 import ButtonPageBack from "../components/buttons/ButtonPageBack";
 
 function Ranking() {
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
     const navigate = useNavigate();
 
-    useEffect(() => {
+    /*useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth > 768) {
                 navigate("/", { replace: true });
@@ -24,7 +22,7 @@ function Ranking() {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, [navigate]);
+    }, [navigate]);*/
 
     return (
         <motion.main
