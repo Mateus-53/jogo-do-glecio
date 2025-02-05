@@ -30,8 +30,13 @@ function Ranking() {
             animate="animate"
             exit="exit"
             variants={scrollFromRight()}
+            onAnimationComplete={() =>
+                document.body.classList.remove("no-scroll")
+            }
         >
-            <ButtonPageBack to="/" absolute={true}>Retornar</ButtonPageBack>
+            <ButtonPageBack to="/" absolute={true}>
+                Retornar
+            </ButtonPageBack>
             <RankingList />
         </motion.main>
     );

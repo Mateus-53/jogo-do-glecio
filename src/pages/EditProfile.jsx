@@ -78,12 +78,12 @@ function EditProfile() {
             <ButtonPageBack to="/" replace={true} absolute={true}>
                 Retornar
             </ButtonPageBack>
-            <main className="flex flex-col max-w-3xl gap-6 p-6 pt-20 md:pt-10 md:p-10 lg:gap-16 md:mx-auto">
+            <main className="flex flex-col max-w-3xl gap-6 p-6 pt-20 lg:gap-16 md:mx-auto">
                 <div className="flex flex-col gap-6">
                     <img
                         src={userInfo.avatarDefault}
                         alt={`${userInfo.name ?? "Anônimo"}'s avatar`}
-                        className="rounded-full pointer-events-none select-none w-28 bg-skeletonLoadingBase"
+                        className="rounded-full w-28 bg-skeletonLoadingBase"
                     />
 
                     <Input

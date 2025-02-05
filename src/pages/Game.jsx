@@ -1,4 +1,4 @@
-import { AnimatePresence, progress } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { HiMiniChevronLeft } from "react-icons/hi2";
 import { useNavigate } from "react-router";
@@ -28,7 +28,7 @@ function Game() {
         if (progress > 0) {
             timer = setInterval(() => {
                 setProgress((prev) => Math.max(prev - 1.67, 0));
-            }, 1000);
+            }, 1010); //1 segundo a mais
         }
 
         return () => clearInterval(timer);
@@ -48,7 +48,7 @@ function Game() {
                 <HiMiniChevronLeft size={24} />
                 Retornar
             </span>
-            <main className="pt-20 p-6">
+            <main className="pt-20 p-6 max-w-3xl mx-auto">
                 <div className="w-full h-5 mb-4 bg-skeletonLoadingBase rounded-full">
                     <div
                         className="h-5 bg-darkPurple rounded-full"
