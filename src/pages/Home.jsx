@@ -1,24 +1,26 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Info, LogOut, Trophy, UserRoundPen } from "lucide-react";
 import { useEffect, useState } from "react";
+import Confetti from "react-confetti";
 import { HiOutlinePlay, HiStar } from "react-icons/hi2";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { fade } from "../animations/pageAnimations";
 import ButtonPrimary from "../components/buttons/ButtonPrimary";
 import ButtonSuccess from "../components/buttons/ButtonSuccess";
 import ButtonSupport from "../components/buttons/ButtonSupport";
 import RankingList from "../components/RankingList";
 import { logoutUser } from "../services/authService";
+import { getUser } from "../services/userService";
 import { isTokenExpiringSoon } from "../utils/authUtils";
 import { getLocalUserInfo } from "../utils/userUtils";
-import { getUser } from "../services/userService";
-import Confetti from "react-confetti";
 
 function Home() {
     document.title = "Início · Jogo do Glécio";
 
     const navigate = useNavigate();
+    const location = useLocation();
+
     const [userInfo, setUserInfo] = useState({});
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -207,16 +209,17 @@ function Home() {
                     />
                 )}
             </AnimatePresence>
-            {/** IGNORE O EFEITO DE CONFETE, POR FAVOR */}
-            <Confetti
-                width={windowWidth}
-                height={windowHeight}
-                recycle={false}
-                numberOfPieces={260}
-                style={{
-                    zIndex: 50,
-                }}
-            />
+            {location.state?.newUser && (
+                <Confetti
+                    width={windowWidth}
+                    height={windowHeight}
+                    recycle={false}
+                    numberOfPieces={280}
+                    style={{
+                        zIndex: 50,
+                    }}
+                />
+            )}
         </>
     );
 }

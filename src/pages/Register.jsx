@@ -110,7 +110,7 @@ function Register() {
             console.log(response);
 
             if (response.access_token) {
-                navigate("/", { replace: true });
+                navigate("/", { replace: true, state: { newUser: true } });
 
                 toast.success("Perfil criado com sucesso!", {
                     className: "bg-white",

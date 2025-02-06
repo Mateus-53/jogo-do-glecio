@@ -110,14 +110,13 @@ function EditProfile() {
             <ButtonPageBack to="/" replace={true} absolute={true}>
                 Retornar
             </ButtonPageBack>
-            <main className="flex flex-col max-w-3xl gap-6 p-6 pt-24 lg:gap-16 md:mx-auto">
+            <main className="flex flex-col max-w-2xl gap-6 p-6 pt-24 lg:gap-16 sm:mx-auto">
                 <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
                     {/*<img
                         src={userInfo.avatarDefault}
                         alt={`${userInfo.name ?? "Anônimo"}'s avatar`}
                         className="rounded-full w-28 bg-skeletonLoadingBase"
                     />*/}
-
                     <AvatarSelector
                         label="Avatar"
                         avatarsList={avatarsList}
