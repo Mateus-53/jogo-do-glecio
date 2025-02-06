@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import Modal from "../components/Modal";
 import { motion } from "framer-motion";
 import { scrollFromRight } from "../animations/pageAnimations";
+import { ArrowRight, Delete } from "lucide-react";
 
 function Game() {
     document.title = "Tabuada · Jogo do Glécio";
@@ -14,6 +15,8 @@ function Game() {
     const [isRunning, setIsRunning] = useState(true);
 
     const navigate = useNavigate();
+
+    const [currentMultiplicatipn, setCurrentMultiplication] = useState("3 x 2");
 
     const handleModalConfirm = () => {
         navigate("/", { replace: true });
@@ -48,6 +51,8 @@ function Game() {
             );
     }, []);
 
+    const generateNewMultiplication = () => {};
+
     return (
         <motion.div
             initial="initial"
@@ -62,7 +67,7 @@ function Game() {
                 <HiMiniChevronLeft size={24} />
                 Retornar
             </span>
-            <main className="pt-20 p-6 max-w-3xl mx-auto">
+            <main className="pt-20 p-6 max-w-6xl mx-auto">
                 <div className="w-full h-5 mb-4 bg-skeletonLoadingBase rounded-full">
                     <div
                         className="h-5 bg-darkPurple rounded-full"
@@ -71,6 +76,59 @@ function Game() {
                             transition: "width 1s linear",
                         }}
                     ></div>
+                </div>
+
+                <div className="flex justify-around">
+                        <p className="text-9xl font-black text-darkPurple">
+                            {currentMultiplicatipn}
+                        </p>
+
+                    <div className="max-w-[350px]">
+                        <input
+                            className="w-full p-4 border border-grayColor outline-none bg-transparent rounded-xl mb-2"
+                            disabled
+                            type="number"
+                            value="12"
+                        />
+                        <div className="grid grid-cols-3 gap-2">
+                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+                                1
+                            </button>
+                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+                                2
+                            </button>
+                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+                                3
+                            </button>
+                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+                                4
+                            </button>
+                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+                                5
+                            </button>
+                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+                                6
+                            </button>
+                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+                                7
+                            </button>
+                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+                                8
+                            </button>
+                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+                                9
+                            </button>
+                            <button className="w-28 h-[72px] bg-redColor rounded-xl text-white flex items-center justify-center shadow-sm hover:scale-95 transition-all ease-in-out">
+                                <Delete className="w-10 h-10" />
+                            </button>
+                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+                                0
+                            </button>
+                            <button className="w-28 h-[72px] bg-greenColor rounded-xl text-white flex items-center justify-center shadow-sm hover:scale-95 transition-all ease-in-out">
+                                <ArrowRight className="w-10 h-10" />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </main>
 

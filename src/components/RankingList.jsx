@@ -1,20 +1,21 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { Trash } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { HiFire, HiStar, HiArrowPath } from "react-icons/hi2";
+import { HiArrowPath, HiFire, HiStar } from "react-icons/hi2";
+import { IoMdCompass } from "react-icons/io";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { toast } from "react-toastify";
 import { fade } from "../animations/pageAnimations";
+import ButtonDanger from "../components/buttons/ButtonDanger";
 import { getRankingGlobal, getRankingNormal } from "../services/rankingService";
-import { IoMdCompass } from "react-icons/io";
 import { getLocalUserInfo } from "../utils/userUtils";
 import ButtonSupport from "./buttons/ButtonSupport";
-import ButtonPageBack from "../components/buttons/ButtonPageBack";
-import ButtonDanger from "../components/buttons/ButtonDanger";
 
 function RankingList() {
     const [rankingNormalList, setRankingNormalList] = useState([]);
     const [rankingGlobalList, setRankingGlobalList] = useState([]);
     const [activeTab, setActiveTab] = useState("normal");
+    
     const [loadedTabs, setLoadedTabs] = useState({
         normal: false,
         global: false,
@@ -27,7 +28,14 @@ function RankingList() {
 
     const rankingListContainerRef = useRef(null);
 
-    const userId = getLocalUserInfo().id;
+    const [userInfo, setUserInfo] = useState({});
+
+    useEffect(() => {
+        const info = getLocalUserInfo()
+        setUserInfo(info);
+
+        console.log(info.isAdmin)
+    }, []);
 
     const fetchRankingNormal = async () => {
         setIsRankingUpdating(true);
@@ -137,23 +145,37 @@ function RankingList() {
 
     return (
         <>
-            <div className="flex flex-col gap-3 p-8 max-md:pt-20 md:p-10 md:border rounded-2xl max-sm:w-screen max-sm:h-screen md:shadow-sm min-w-[350px] lg:min-w-[380px] md:w-1/2 text-darkGray border-grayColor lg:w-1/3">                
+            <div className="flex flex-col gap-3 p-8 max-md:pt-20 md:p-10 md:border rounded-2xl max-sm:w-screen max-sm:h-screen md:shadow-sm min-w-[350px] lg:min-w-[380px] md:w-1/2 text-darkGray border-grayColor lg:w-1/3">
                 <h2 className="text-2xl font-bold">Ranking</h2>
-                <p className="text-base">
-                    Veja os melhores jogadores competindo para alcançar as
-                    maiores pontuações no jogo de tabuada.
-                </p>
-                <ButtonSupport
-                    className="flex items-center justify-center w-full h-12 gap-2 p-3 border rounded-lg font text-darkGray border-grayColor"
-                    onClick={updateRanking}
-                >
-                    <HiArrowPath
-                        className={`w-5 h-5 ${
-                            isRankingUpdating ? "animate-spin" : ""
-                        }`}
-                    />
-                    Atualizar
-                </ButtonSupport>
+                {!userInfo.isAdmin && (
+                    <p className="text-base">
+                        Veja os melhores jogadores competindo para alcançar as
+                        maiores pontuações no jogo de tabuada.
+                    </p>
+                )}
+
+                <div className="flex flex-col gap-2">
+                    {userInfo.isAdmin && (
+                        <ButtonDanger
+                            className="flex items-center justify-center w-full h-12 gap-2 p-3 border rounded-lg font text-darkGray border-grayColor"
+                            onClick={updateRanking}
+                        >
+                            <Trash className="w-5 h-5" />
+                            Limpar
+                        </ButtonDanger>
+                    )}
+                    <ButtonSupport
+                        className="flex items-center justify-center w-full h-12 gap-2 p-3 border rounded-lg font text-darkGray border-grayColor"
+                        onClick={updateRanking}
+                    >
+                        <HiArrowPath
+                            className={`w-5 h-5 ${
+                                isRankingUpdating ? "animate-spin" : ""
+                            }`}
+                        />
+                        Atualizar
+                    </ButtonSupport>
+                </div>
                 <div className="flex gap-5">
                     <button
                         className={`flex items-center justify-center w-1/2 gap-1 pb-1 text-base font-medium border-b-2 ${
@@ -201,7 +223,7 @@ function RankingList() {
                                         <div className="flex items-center min-w-0">
                                             <span
                                                 className={`min-w-6 ${
-                                                    item.user.id == userId
+                                                    item.user.id == userInfo.id
                                                         ? "text-purpleSecondary"
                                                         : ""
                                                 }`}
@@ -234,7 +256,7 @@ function RankingList() {
                                         </div>
                                         <div
                                             className={`${
-                                                item.user.id === userId
+                                                item.user.id === userInfo.id
                                                     ? "text-purpleSecondary"
                                                     : ""
                                             } flex items-cente gap-1 flex-shrink-0 w-11 font-medium`}

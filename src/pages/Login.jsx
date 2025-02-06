@@ -119,7 +119,7 @@ function Login() {
                                     Acessar
                                 </ButtonPrimary>
                                 <Link
-                                    to="/password-reset/request"
+                                    to="/forgot-password"
                                     className="self-end text-sm text-purpleDarkGray"
                                 >
                                     Esqueceu sua senha?

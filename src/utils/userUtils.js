@@ -9,7 +9,7 @@ export const getLocalUserInfo = () => {
         avatarMedium: localStorage.getItem("AVATAR_MEDIUM"),
         avatarLow: localStorage.getItem("AVATAR_LOW"),
         maxScore: parseInt(localStorage.getItem("MAX_SCORE")),
-        isAdmin: localStorage.getItem("IS_ADMIN") == true,
+        isAdmin: localStorage.getItem("IS_ADMIN") == "true" //depois,
     };
 };
 

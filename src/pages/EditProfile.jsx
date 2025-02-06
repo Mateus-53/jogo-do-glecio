@@ -13,6 +13,8 @@ import {
     updateUser,
 } from "../services/userService";
 import { getLocalUserInfo } from "../utils/userUtils";
+import { SquareArrowOutUpRight } from "lucide-react";
+import { Link } from "react-router";
 
 function EditProfile() {
     document.title = "Editar perfil · Jogo do Glécio";
@@ -155,12 +157,13 @@ function EditProfile() {
                         }}
                     />
 
-                    <Input
-                        label="Senha"
-                        name="password"
-                        placeholder="Redefenir Senha"
-                        disabled={true}
-                    />
+                    <Link className="text-darkPurple flex gap-2 items-center p-3 border border-darkPurple rounded-lg justify-between">
+                        Mudar sua senha
+                        <SquareArrowOutUpRight
+                            className="w-5 h-5"
+                            strokeWidth={1.8}
+                        />
+                    </Link>
 
                     <ButtonSuccess
                         type="submit"

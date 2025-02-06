@@ -22,7 +22,7 @@ function AnimatedRoutes() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/play" element={<Game />} />
                 <Route
-                    path="/password-reset/request"
+                    path="/forgot-password"
                     element={<ResetPasswordRequest />}
                 />
                 <Route

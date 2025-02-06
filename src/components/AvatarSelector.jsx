@@ -9,7 +9,7 @@ const AvatarSelector = ({
     label,
     avatarsList,
     selectedAvatarIndex,
-    onSelect,
+    onSelect,   src={SelectedIndicator}
 }) => {
     const [selectedAvatar, setSelectedAvatar] = useState(
         selectedAvatarIndex ?? 1
