@@ -11,6 +11,7 @@ function Game() {
 
     const [showModal, setShowModal] = useState(false);
     const [progress, setProgress] = useState(100);
+    const [isRunning, setIsRunning] = useState(true);
 
     const navigate = useNavigate();
 
@@ -19,20 +20,33 @@ function Game() {
     };
     const handleModalCancel = () => {
         setShowModal(false);
-        //lembrar: fazer com que o tempo pause quando o modal estiver ativo
     };
 
     useEffect(() => {
         let timer;
 
-        if (progress > 0) {
+        if (isRunning && !showModal && progress > 0) {
             timer = setInterval(() => {
                 setProgress((prev) => Math.max(prev - 1.67, 0));
             }, 1010); //1 segundo a mais
         }
 
         return () => clearInterval(timer);
-    }, [progress]);
+    }, [progress, showModal, isRunning]);
+
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            setIsRunning(!document.hidden);
+        };
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+
+        return () =>
+            document.removeEventListener(
+                "visibilitychange",
+                handleVisibilityChange
+            );
+    }, []);
 
     return (
         <motion.div
