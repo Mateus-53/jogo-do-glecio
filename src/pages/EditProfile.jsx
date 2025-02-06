@@ -7,24 +7,37 @@ import ButtonSuccess from "../components/buttons/ButtonSuccess";
 import Input from "../components/Input";
 import Select from "../components/Select";
 import { toast } from "react-toastify";
-import { getAvatarsList, getCoursesList } from "../services/userService";
+import {
+    getAvatarsList,
+    getCoursesList,
+    updateUser,
+} from "../services/userService";
 
 function EditProfile() {
     document.title = "Editar perfil · Jogo do Glécio";
+    
     const [userInfo, setUserInfo] = useState({});
-
+   
     const [avatarsList, setAvatarsList] = useState([]);
     const [coursesList, setCoursesList] = useState([]);
+    const [buttonIsLoading, setButtonIsLoading] = useState(false);
 
     const [userData, setUserData] = useState({
         avatar_id: 1,
-        name: null,
-        course_id: null,
+        name: "",
+        course_id: 1,
     });
 
     useEffect(() => {
         const info = getLocalUserInfo();
         setUserInfo(info);
+
+        // Atualiza userData com os dados obtidos do usuário
+        setUserData((prev) => ({
+            ...prev,
+            name: info?.name || "",
+            course_id: info?.courseId || 1,
+        }));
     }, []);
 
     useEffect(() => {
@@ -32,13 +45,6 @@ function EditProfile() {
             try {
                 const courses = await getCoursesList();
                 setCoursesList(courses);
-
-                if (courses.length > 0) {
-                    setUserData((prev) => ({
-                        ...prev,
-                        course_id: courses[0].id,
-                    }));
-                }
             } catch (error) {
                 toast.error(
                     error.message ||
@@ -64,9 +70,33 @@ function EditProfile() {
             }
         };
 
-        //fetchAvatars();
         fetchCourses();
+        fetchAvatars();
     }, []);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setButtonIsLoading(true);
+
+        try {
+            const response = await updateUser(userData);
+            if (response.status_code === 200) {
+                toast.success(response.message, { className: "bg-white" });
+            }
+        } catch (error) {
+            toast.error(
+                error.message ||
+                    "Ocorreu um erro ao atualizar suas informações. Tente novamente mais tarde.",
+                {
+                    className: "bg-white",
+                }
+            );
+        }
+
+        setButtonIsLoading(false);
+    };
+
+    /** PERGUNTA: COMO SERÁ A SELEÇÃO DE AVATAR NESTA PÁGINA ????????? */
 
     return (
         <motion.div
@@ -79,7 +109,7 @@ function EditProfile() {
                 Retornar
             </ButtonPageBack>
             <main className="flex flex-col max-w-3xl gap-6 p-6 pt-20 lg:gap-16 md:mx-auto">
-                <div className="flex flex-col gap-6">
+                <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
                     <img
                         src={userInfo.avatarDefault}
                         alt={`${userInfo.name ?? "Anônimo"}'s avatar`}
@@ -90,9 +120,7 @@ function EditProfile() {
                         label="Nome"
                         name="name"
                         type="text"
-                        value={`${userInfo.name ?? "Anônimo"}`}
-                        isEditing={true}
-                        disabled={true}
+                        value={userData.name}
                         onChange={(e) => {
                             setUserData((prev) => ({
                                 ...prev,
@@ -105,17 +133,11 @@ function EditProfile() {
                         label="Turma"
                         name="courses"
                         values={coursesList}
-                        selectedValue={
-                            userInfo.courseId
-                                ? userInfo.courseId
-                                : coursesList.length > 0
-                                ? coursesList[0]?.id
-                                : null
-                        }
-                        onSelect={(avatarId) => {
+                        selectedValue={userData.course_id}
+                        onSelect={(courseId) => {
                             setUserData((prev) => ({
                                 ...prev,
-                                course_id: avatarId,
+                                course_id: courseId,
                             }));
                         }}
                     />
@@ -127,8 +149,10 @@ function EditProfile() {
                         disabled={true}
                     />
 
-                    <ButtonSuccess>Salvar Alterações</ButtonSuccess>
-                </div>
+                    <ButtonSuccess type="submit" isLoading={buttonIsLoading}>
+                        Salvar Alterações
+                    </ButtonSuccess>
+                </form>
             </main>
         </motion.div>
     );

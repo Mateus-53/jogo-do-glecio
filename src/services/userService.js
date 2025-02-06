@@ -21,6 +21,19 @@ export const getUser = async (userId) => {
             );
         }
 
+        const userInfo = {
+            id: data.id,
+            name: data.name,
+            courseId: data.course.id,
+            course: data.course.name,
+            avatarId: data.avatar.id,
+            avatarDefault: data.avatar.path_default,
+            avatarMedium: data.avatar.path_256px,
+            avatarLow: data.avatar.path_128px,
+            isAdmin: data.is_admin,
+        };
+        setLocalUserInfo(userInfo);
+
         return data;
     } catch (error) {
         throw error;
@@ -48,6 +61,7 @@ export const updateUser = async (newData) => {
         }
 
         const newInfo = {
+            id: data.id,
             name: data.name,
             courseId: data.course.id,
             course: data.course.name,
@@ -55,10 +69,11 @@ export const updateUser = async (newData) => {
             avatarDefault: data.avatar.path_default,
             avatarMedium: data.avatar.path_256px,
             avatarLow: data.avatar.path_128px,
+            isAdmin: data.is_admin,
         };
         setLocalUserInfo(newInfo);
 
-        return data;
+        return body;
     } catch (error) {
         throw error;
     }
@@ -117,6 +132,7 @@ export const getCoursesList = async () => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
             },
         });
 
