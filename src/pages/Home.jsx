@@ -207,7 +207,7 @@ function Home() {
                     />
                 )}
             </AnimatePresence>
-				{/** IGNORE O EFEITO DE CONFETE, POR FAVOR */}
+            {/** IGNORE O EFEITO DE CONFETE, POR FAVOR */}
             <Confetti
                 width={windowWidth}
                 height={windowHeight}

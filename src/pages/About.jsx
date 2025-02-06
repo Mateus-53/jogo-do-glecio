@@ -19,7 +19,7 @@ function About() {
             <ButtonPageBack to="/" replace={true} absolute={true}>
                 Retornar
             </ButtonPageBack>
-            <main className="max-w-4xl mt-16 p-6 md:p-10 h-full mx-auto space-y-8 content-center">
+            <main className="max-w-4xl pt-20 p-6 h-full mx-auto space-y-8 content-center">
                 <div className="space-y-4">
                     <h2 className="text-3xl text-darkPurple font-black">
                         Sobre o projeto

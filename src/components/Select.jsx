@@ -37,7 +37,7 @@ const Select = ({ name, label, values, selectedValue, onSelect }) => {
                             </option>
                         ))
                     ) : (
-                        <option disabled selected>
+                        <option disabled selected value="">
                             Carregando...
                         </option>
                     )}

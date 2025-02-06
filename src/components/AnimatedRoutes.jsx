@@ -7,6 +7,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Ranking from "../pages/Ranking";
 import Register from "../pages/Register";
+import Result from "../pages/Result";
 import ResetPasswordConfirm from "../pages/ResetPasswordConfirm";
 import ResetPasswordRequest from "../pages/ResetPasswordRequest";
 
@@ -31,6 +32,7 @@ function AnimatedRoutes() {
                 <Route path="/edit-profile" element={<EditProfile />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/ranking" element={<Ranking />} />
+                <Route path="/results" element={<Result />} />
             </Routes>
         </AnimatePresence>
     );

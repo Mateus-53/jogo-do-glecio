@@ -15,9 +15,9 @@ import {
 
 function EditProfile() {
     document.title = "Editar perfil · Jogo do Glécio";
-    
+
     const [userInfo, setUserInfo] = useState({});
-   
+
     const [avatarsList, setAvatarsList] = useState([]);
     const [coursesList, setCoursesList] = useState([]);
     const [buttonIsLoading, setButtonIsLoading] = useState(false);
@@ -149,7 +149,16 @@ function EditProfile() {
                         disabled={true}
                     />
 
-                    <ButtonSuccess type="submit" isLoading={buttonIsLoading}>
+                    <ButtonSuccess
+                        type="submit"
+                        isLoading={buttonIsLoading}
+                        disabled={
+                            userData.name != userInfo.name ||
+                            userData.course_id != userInfo.courseId
+                                ? false
+                                : true
+                        }
+                    >
                         Salvar Alterações
                     </ButtonSuccess>
                 </form>
