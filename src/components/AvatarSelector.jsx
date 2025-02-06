@@ -5,15 +5,27 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import SelectedIndicator from "../assets/images/elements/selected-indicator.svg";
 
-const AvatarSelector = ({ avatarsList, selectedAvatarIndex, onSelect }) => {
+const AvatarSelector = ({
+    label,
+    avatarsList,
+    selectedAvatarIndex,
+    onSelect,
+}) => {
     const [selectedAvatar, setSelectedAvatar] = useState(
-        selectedAvatarIndex | 1
+        selectedAvatarIndex ?? 1
     );
     const [showGradientEnd, setShowGradientEnd] = useState(true);
     const [showGradientStart, setShowGradientStart] = useState(false);
     const containerRef = useRef(null);
 
     const isLoading = !avatarsList || avatarsList.length === 0;
+
+    useEffect(() => {
+        // Sincroniza seleção quando a prop muda
+        if (selectedAvatarIndex !== undefined) {
+            setSelectedAvatar(selectedAvatarIndex);
+        }
+    }, [selectedAvatarIndex]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -54,7 +66,7 @@ const AvatarSelector = ({ avatarsList, selectedAvatarIndex, onSelect }) => {
     return (
         <div className="relative">
             <div className="flex justify-between">
-                <span className="text-darkGray text-sm">Escolha um avatar</span>
+                <span className="text-darkGray text-sm">{label}</span>
                 <div className="flex justify-between gap-1 max-sm:hidden">
                     <HiMiniChevronLeft
                         className="w-5 h-5 cursor-pointer hover:scale-125 transition-all ease-out"

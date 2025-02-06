@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
-import { scrollFromRight } from "../animations/pageAnimations";
 import { motion } from "framer-motion";
-import { getLocalUserInfo } from "../utils/userUtils";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { scrollFromRight } from "../animations/pageAnimations";
 import ButtonPageBack from "../components/buttons/ButtonPageBack";
 import ButtonSuccess from "../components/buttons/ButtonSuccess";
 import Input from "../components/Input";
 import Select from "../components/Select";
-import { toast } from "react-toastify";
+import AvatarSelector from "../components/AvatarSelector";
 import {
     getAvatarsList,
     getCoursesList,
     updateUser,
 } from "../services/userService";
+import { getLocalUserInfo } from "../utils/userUtils";
 
 function EditProfile() {
     document.title = "Editar perfil · Jogo do Glécio";
@@ -35,8 +36,9 @@ function EditProfile() {
         // Atualiza userData com os dados obtidos do usuário
         setUserData((prev) => ({
             ...prev,
-            name: info?.name || "",
-            course_id: info?.courseId || 1,
+            name: info.name || "",
+            avatar_id: Number(info.avatarId) || 1,
+            course_id: Number(info.courseId) || 1,
         }));
     }, []);
 
@@ -108,12 +110,24 @@ function EditProfile() {
             <ButtonPageBack to="/" replace={true} absolute={true}>
                 Retornar
             </ButtonPageBack>
-            <main className="flex flex-col max-w-3xl gap-6 p-6 pt-20 lg:gap-16 md:mx-auto">
+            <main className="flex flex-col max-w-3xl gap-6 p-6 pt-24 lg:gap-16 md:mx-auto">
                 <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-                    <img
+                    {/*<img
                         src={userInfo.avatarDefault}
                         alt={`${userInfo.name ?? "Anônimo"}'s avatar`}
                         className="rounded-full w-28 bg-skeletonLoadingBase"
+                    />*/}
+
+                    <AvatarSelector
+                        label="Avatar"
+                        avatarsList={avatarsList}
+                        selectedAvatarIndex={userData.avatar_id}
+                        onSelect={(avatarId) =>
+                            setUserData((prev) => ({
+                                ...prev,
+                                avatar_id: avatarId,
+                            }))
+                        }
                     />
 
                     <Input
@@ -154,7 +168,8 @@ function EditProfile() {
                         isLoading={buttonIsLoading}
                         disabled={
                             userData.name != userInfo.name ||
-                            userData.course_id != userInfo.courseId
+                            userData.course_id != userInfo.courseId ||
+                            userData.avatar_id != userInfo.avatarId
                                 ? false
                                 : true
                         }
