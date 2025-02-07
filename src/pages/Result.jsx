@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { getLocalUserInfo } from "../utils/userUtils";
 
 function Result() {
+    document.title = "Resultados · Jogo do Glécio"
+
     const location = useLocation();
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);

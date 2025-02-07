@@ -6,6 +6,8 @@ import { scrollFromRight } from "../animations/pageAnimations";
 import ButtonPageBack from "../components/buttons/ButtonPageBack";
 
 function Ranking() {
+    document.title = "Ranking · Jogo do Glécio"
+
     const navigate = useNavigate();
 
     /*useEffect(() => {

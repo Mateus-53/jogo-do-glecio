@@ -69,9 +69,9 @@ export const updateUser = async (newData) => {
             avatarDefault: data.avatar.path_default,
             avatarMedium: data.avatar.path_256px,
             avatarLow: data.avatar.path_128px,
-            isAdmin: data.is_admin,
         };
         setLocalUserInfo(newInfo);
+        console.log(body)
 
         return body;
     } catch (error) {

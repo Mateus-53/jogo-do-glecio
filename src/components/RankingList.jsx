@@ -15,7 +15,7 @@ function RankingList() {
     const [rankingNormalList, setRankingNormalList] = useState([]);
     const [rankingGlobalList, setRankingGlobalList] = useState([]);
     const [activeTab, setActiveTab] = useState("normal");
-    
+
     const [loadedTabs, setLoadedTabs] = useState({
         normal: false,
         global: false,
@@ -31,7 +31,7 @@ function RankingList() {
     const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
-        const info = getLocalUserInfo()
+        const info = getLocalUserInfo();
         setUserInfo(info);
     }, []);
 
@@ -109,6 +109,22 @@ function RankingList() {
         }
     };
 
+    const resetRanking = async () => {
+        try {
+            const response = await resetRanking();
+
+            if (response.status_code === 200) {
+                toast.success(response.message, { className: "bg-white" });
+            }
+        } catch (error) {
+            toast.error(
+                error.message ||
+                    "Erro ao limpar o ranking. Tente novamente mais tarde",
+                { className: "bg-white" }
+            );
+        }
+    };
+
     useEffect(() => {
         if (!loadedTabs.normal) {
             fetchRankingNormal();
@@ -156,9 +172,9 @@ function RankingList() {
                     {userInfo.isAdmin && (
                         <ButtonDanger
                             className="flex items-center justify-center w-full h-12 gap-2 p-3 border rounded-lg font text-darkGray border-grayColor"
-                            onClick={updateRanking}
+                            onClick=""
                         >
-                            <Trash className="w-5 h-5" />
+                            <Trash className="w-5 h-5" strokeWidth={1.6}/>
                             Limpar
                         </ButtonDanger>
                     )}

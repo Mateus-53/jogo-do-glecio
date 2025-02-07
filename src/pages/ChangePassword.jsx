@@ -9,6 +9,8 @@ import Input from "../components/Input";
 import { updateUserPassword } from "../services/userService";
 
 function ChangePassword() {
+    document.title = "Alterar senha · Jogo do Glécio"
+
     const navigate = useNavigate();
 
     const [oldPassword, setOldPassword] = useState("");
