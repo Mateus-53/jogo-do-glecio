@@ -6,143 +6,180 @@ import Modal from "../components/Modal";
 import { motion } from "framer-motion";
 import { scrollFromRight } from "../animations/pageAnimations";
 import { ArrowRight, Delete } from "lucide-react";
+import redSadFace from "../assets/images/elements/red-sad-face.svg";
+import greenHappyFace from "../assets/images/elements/green-happy-face.svg";
 
 function Game() {
-    document.title = "Tabuada · Jogo do Glécio";
+	document.title = "Tabuada · Jogo do Glécio";
 
-    const [showModal, setShowModal] = useState(false);
-    const [progress, setProgress] = useState(100);
-    const [isRunning, setIsRunning] = useState(true);
+	const [showModal, setShowModal] = useState(false);
+	const [progress, setProgress] = useState(100);
+	const [isRunning, setIsRunning] = useState(true);
 
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
-    const [currentMultiplicatipn, setCurrentMultiplication] = useState("3 x 2");
+	const [currentMultiplicatipn, setCurrentMultiplication] = useState("3 x 2");
 
-    const handleModalConfirm = () => {
-        navigate("/", { replace: true });
-    };
-    const handleModalCancel = () => {
-        setShowModal(false);
-    };
+	const handleModalConfirm = () => {
+		navigate("/", { replace: true });
+	};
+	const handleModalCancel = () => {
+		setShowModal(false);
+	};
 
-    useEffect(() => {
-        let timer;
+	useEffect(() => {
+		let timer;
 
-        if (isRunning && !showModal && progress > 0) {
-            timer = setInterval(() => {
-                setProgress((prev) => Math.max(prev - 1.67, 0));
-            }, 1010); //1 segundo a mais
-        }
+		if (isRunning && !showModal && progress > 0) {
+			timer = setInterval(() => {
+				setProgress((prev) => Math.max(prev - 1.67, 0));
+			}, 1010); //1 segundo a mais
+		}
 
-        return () => clearInterval(timer);
-    }, [progress, showModal, isRunning]);
+		return () => clearInterval(timer);
+	}, [progress, showModal, isRunning]);
 
-    useEffect(() => {
-        const handleVisibilityChange = () => {
-            setIsRunning(!document.hidden);
-        };
+	useEffect(() => {
+		const handleVisibilityChange = () => {
+			setIsRunning(!document.hidden);
+		};
 
-        document.addEventListener("visibilitychange", handleVisibilityChange);
+		document.addEventListener("visibilitychange", handleVisibilityChange);
 
-        return () =>
-            document.removeEventListener(
-                "visibilitychange",
-                handleVisibilityChange
-            );
-    }, []);
+		return () =>
+			document.removeEventListener("visibilitychange", handleVisibilityChange);
+	}, []);
 
-    const generateNewMultiplication = () => {};
+	const generateNewMultiplication = () => {};
 
-    return (
-        <motion.div
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            variants={scrollFromRight()}
-        >
-            <span
-                onClick={() => setShowModal(true)}
-                className="flex cursor-pointer text-darkPurple items-center font-medium p-2 absolute top-8 left-14 max-sm:left-4"
-            >
-                <HiMiniChevronLeft size={24} />
-                Retornar
-            </span>
-            <main className="pt-20 p-6 max-w-6xl mx-auto">
-                <div className="w-full h-5 mb-4 bg-skeletonLoadingBase rounded-full">
-                    <div
-                        className="h-5 bg-darkPurple rounded-full"
-                        style={{
-                            width: `${progress}%`,
-                            transition: "width 1s linear",
-                        }}
-                    ></div>
-                </div>
+	return (
+		<motion.div
+			initial="initial"
+			animate="animate"
+			exit="exit"
+			variants={scrollFromRight()}
+		>
+			<span
+				onClick={() => setShowModal(true)}
+				className="flex cursor-pointer text-darkPurple items-center font-medium absolute top-8 left-14 max-sm:left-4"
+			>
+				<HiMiniChevronLeft size={24} />
+				Retornar
+			</span>
+			<main className="pt-20 p-6 max-w-6xl mx-auto">
+				{/* Barra de progresso */}
+				<div className="w-full h-5 mb-20 bg-skeletonLoadingBase rounded-full max-[580px]:mb-10">
+					<div
+						className="h-5 bg-darkPurple rounded-full"
+						style={{
+							width: `${progress}%`,
+							transition: "width 1s linear",
+						}}
+					></div>
+				</div>
 
-                <div className="flex justify-around">
-                        <p className="text-9xl font-black text-darkPurple">
-                            {currentMultiplicatipn}
-                        </p>
+				{/* Conteúdo */}
+				<div className="flex justify-between gap-10 max-lg:gap-5 max-[580px]:flex-col">
+					{/* Multiplicação e acertos/erros */}
+					<div className="flex flex-col justify-between w-[450px] max-[580px]:w-full">
+						<p className="text-[192px] font-black text-darkPurple text-center max-lg:text-[160px] max-[810px]:text-9xl max-sm:text-8xl h-full aling  max-[580px]:mb-10">
+							{currentMultiplicatipn}
+						</p>
+						<div className="flex justify-evenly gap-4 max-[580px]:justify-between">
+							<div className="flex gap-2 items-center">
+								<img
+									src={greenHappyFace}
+									alt={`${greenHappyFace}'s image`}
+									className="pointer-events-none select-none h-16 max-sm:h-12 max-[580px]:h-10    "
+								/>
+								<div className="flex flex-col">
+									<span className="text-greenColor font-extrabold text-2xl leading-4 max-[580px]:text-xl max-[580px]:leading-3">
+										40
+									</span>
+									<span className="font-medium text-darkGray text-lg max-[580px]:text-base">
+										Acertos
+									</span>
+								</div>
+							</div>
+							<div className="flex gap-2 items-center">
+								<img
+									src={redSadFace}
+									alt={`${redSadFace}'s image`}
+									className="pointer-events-none select-none h-16 max-sm:h-12 max-[580px]:h-10"
+								/>
+								<div className="flex flex-col">
+									<span className="text-redColor font-extrabold text-2xl leading-4 max-[580px]:text-xl max-[580px]:leading-3">
+										10
+									</span>
+									<span className="font-medium text-darkGray text-lg max-[580px]:text-base">
+										Erros
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
 
-                    <div className="max-w-[350px]">
-                        <input
-                            className="w-full p-4 border border-grayColor outline-none bg-transparent rounded-xl mb-2"
-                            disabled
-                            type="number"
-                            value="12"
-                        />
-                        <div className="grid grid-cols-3 gap-2">
-                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
-                                1
-                            </button>
-                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
-                                2
-                            </button>
-                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
-                                3
-                            </button>
-                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
-                                4
-                            </button>
-                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
-                                5
-                            </button>
-                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
-                                6
-                            </button>
-                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
-                                7
-                            </button>
-                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
-                                8
-                            </button>
-                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
-                                9
-                            </button>
-                            <button className="w-28 h-[72px] bg-redColor rounded-xl text-white flex items-center justify-center shadow-sm hover:scale-95 transition-all ease-in-out">
-                                <Delete className="w-10 h-10" />
-                            </button>
-                            <button className="w-28 h-[72px] bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
-                                0
-                            </button>
-                            <button className="w-28 h-[72px] bg-greenColor rounded-xl text-white flex items-center justify-center shadow-sm hover:scale-95 transition-all ease-in-out">
-                                <ArrowRight className="w-10 h-10" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </main>
+					{/* Teclado */}
+					<div className="max-w-[450px] max-[580px]:max-w-full">
+						<input
+							className="w-full p-4 border border-grayColor outline-none bg-transparent rounded-xl mb-2 max-[580px]:p-3"
+							disabled
+							type="number"
+							value="12"
+						/>
+						<div className="grid grid-cols-[repeat(3,112px)] auto-rows-[72px] gap-2 max-md:grid-cols-[repeat(3,80px)] max-md:auto-rows-[64px] max-[580px]:grid-cols-[repeat(3,1fr)] max-[580px]:auto-rows-[50px]">
+							<button className="w-full h-full bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+								1
+							</button>
+							<button className="w-full h-full bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+								2
+							</button>
+							<button className="w-full h-full bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+								3
+							</button>
+							<button className="w-full h-full bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+								4
+							</button>
+							<button className="w-full h-full bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+								5
+							</button>
+							<button className="w-full h-full bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+								6
+							</button>
+							<button className="w-full h-full bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+								7
+							</button>
+							<button className="w-full h-full bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+								8
+							</button>
+							<button className="w-full h-full bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+								9
+							</button>
+							<button className="w-full h-full bg-redColor rounded-xl text-white flex items-center justify-center shadow-sm hover:scale-95 transition-all ease-in-out">
+								<Delete className="w-10 h-10" />
+							</button>
+							<button className="w-full h-full bg-darkPurple rounded-xl text-white font-semibold text-4xl shadow-sm hover:scale-95 transition-all ease-in-out">
+								0
+							</button>
+							<button className="w-full h-full bg-greenColor rounded-xl text-white flex items-center justify-center shadow-sm hover:scale-95 transition-all ease-in-out">
+								<ArrowRight className="w-10 h-10" />
+							</button>
+						</div>
+					</div>
+				</div>
+			</main>
 
-            <AnimatePresence mode="wait">
-                {showModal && (
-                    <Modal
-                        title="Tem certeza que deseja sair?"
-                        message="Todo seu progresso será perdido."
-                        onConfirm={handleModalConfirm}
-                        onCancel={handleModalCancel}
-                    />
-                )}
-            </AnimatePresence>
-        </motion.div>
-    );
+			<AnimatePresence mode="wait">
+				{showModal && (
+					<Modal
+						title="Tem certeza que deseja sair?"
+						message="Todo seu progresso será perdido."
+						onConfirm={handleModalConfirm}
+						onCancel={handleModalCancel}
+					/>
+				)}
+			</AnimatePresence>
+		</motion.div>
+	);
 }
 export default Game;
