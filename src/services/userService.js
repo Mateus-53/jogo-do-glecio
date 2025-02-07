@@ -71,7 +71,6 @@ export const updateUser = async (newData) => {
             avatarLow: data.avatar.path_128px,
         };
         setLocalUserInfo(newInfo);
-        console.log(body)
 
         return body;
     } catch (error) {
