@@ -14,7 +14,7 @@ function ResetPasswordConfirm() {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [buttonIsLoading, setButtonIsLoading] = useState(false);
-    const [inputErrorIndicator, setInputErrorIndicator] = useState(false);
+    const [inputError, setInputError] = useState({});
 
     const navigate = useNavigate();
 
@@ -24,26 +24,31 @@ function ResetPasswordConfirm() {
         if (!isValidJWT(token)) {
             navigate("/login", { replace: true });
         }
-    }, []);
+    }, [navigate, token]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setInputErrorIndicator(false);
-
-        if (newPassword !== confirmPassword) {
-            setInputErrorIndicator(true);
-            toast.error("As senhas não correspondem", {
-                className: "bg-white",
-            });
-            return;
-        }
 
         setButtonIsLoading(true);
 
         try {
-            const response = await resetPasswordConfirm(token, newPassword);
+            if (newPassword !== confirmPassword) {
+                const error = new Error("As senhas não correspondem");
+                error.statusCode = 406;
 
-            setButtonIsLoading(false);
+                throw error;
+            }
+
+            if (newPassword.length < 4) {
+                const error = new Error(
+                    "A nova senha deve conter no mínimo 4 caracteres."
+                );
+                error.statusCode = 407;
+
+                throw error;
+            }
+
+            const response = await resetPasswordConfirm(token, newPassword);
 
             if (response.status_code == 200) {
                 toast.success(response.message, {
@@ -53,16 +58,29 @@ function ResetPasswordConfirm() {
                 navigate("/login", { replace: true });
             }
         } catch (error) {
-            setButtonIsLoading(false);
+            const statusCode = error?.statusCode;
 
-            toast.error(
-                error.message ||
-                    "Erro ao resetar senha. Tente novamente mais tarde",
-                {
-                    className: "bg-white",
-                }
-            );
+            if (statusCode === 406) {
+                setInputError({
+                    statusCode: 406,
+                    message: error.message,
+                });
+            } else if (statusCode === 407) {
+                setInputError({
+                    statusCode: 407,
+                    message: error.message,
+                });
+            } else {
+                toast.error(
+                    error.message ||
+                        "Erro ao resetar senha. Tente novamente mais tarde.",
+                    {
+                        className: "bg-white",
+                    }
+                );
+            }
         }
+        setButtonIsLoading(false);
     };
 
     return (
@@ -87,7 +105,13 @@ function ResetPasswordConfirm() {
                             type="password"
                             name="new_password"
                             required={true}
-                            error={inputErrorIndicator}
+                            error={
+                                inputError.statusCode === 406
+                                    ? inputError.message
+                                    : inputError.statusCode === 407
+                                    ? inputError.message
+                                    : null
+                            }
                             onChange={(e) => setNewPassword(e.target.value)}
                         />
                         <Input
@@ -95,7 +119,11 @@ function ResetPasswordConfirm() {
                             type="password"
                             name="new_password_confirm"
                             required={true}
-                            error={inputErrorIndicator}
+                            error={
+                                inputError.statusCode === 406
+                                    ? inputError.message
+                                    : null
+                            }
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                         <ButtonSuccess isLoading={buttonIsLoading}>

@@ -157,8 +157,8 @@ function EditProfile() {
                         }}
                     />
 
-                    <Link className="text-darkPurple flex gap-2 items-center p-3 border border-darkPurple rounded-lg justify-between">
-                        Mudar sua senha
+                    <Link to="/edit-profile/password" className="text-darkPurple flex gap-2 items-center p-3 border border-darkPurple rounded-lg justify-between">
+                        Alterar sua senha
                         <SquareArrowOutUpRight
                             className="w-5 h-5"
                             strokeWidth={1.8}

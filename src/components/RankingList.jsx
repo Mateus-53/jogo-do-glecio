@@ -33,8 +33,6 @@ function RankingList() {
     useEffect(() => {
         const info = getLocalUserInfo()
         setUserInfo(info);
-
-        console.log(info.isAdmin)
     }, []);
 
     const fetchRankingNormal = async () => {

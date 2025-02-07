@@ -93,9 +93,12 @@ export const updateUserPassword = async (credentials) => {
         const body = await response.json();
 
         if (!response.ok) {
-            throw new Error(
+            const error = new Error(
                 body.message || "Erro ao atualizar senha do usuário"
             );
+            error.statusCode = body.status_code || 500;
+
+            throw error;
         }
 
         return body;
