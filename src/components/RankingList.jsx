@@ -163,6 +163,10 @@ function RankingList() {
                 ? normalScrollPosition
                 : globalScrollPosition;
 
+        if (container) {
+            setShowGradientTop(container.scrollTop > 0);
+        }
+
         return () => container.removeEventListener("scroll", handleScroll);
     }, [activeTab, normalScrollPosition, globalScrollPosition]);
 
