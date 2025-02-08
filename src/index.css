@@ -6,8 +6,8 @@
     --purple: #b386ff;
     --purple-seconday: #8e4dff;
     --dark-purple: #7b4ec7;
-    --green: #0EA022;
-    --dark-green: #0A6315;
+    --green: #0ea022;
+    --dark-green: #0a6315;
     --red: #e01226;
     --dark-red: #6d0c15;
     --white: #f5f0ff;
@@ -36,8 +36,42 @@ body {
     overflow: hidden;
 }
 
+.animate-tilt-shaking {
+    animation: tilt-shaking 0.5s infinite;
+}
+
 @media not all and (max-width: 640px) {
     .scrollbar-hide {
         scrollbar-width: none;
+    }
+}
+
+@keyframes tilt-shaking {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateY(-9px);
+    }
+
+    35% {
+        transform: translateY(-9px) rotate(17deg);
+    }
+
+    55% {
+        transform: translateY(-9px) rotate(-17deg);
+    }
+
+    65% {
+        transform: translateY(-9px) rotate(17deg);
+    }
+
+    75% {
+        transform: translateY(-9px) rotate(-17deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0);
     }
 }

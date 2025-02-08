@@ -8,9 +8,9 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Ranking from "../pages/Ranking";
 import Register from "../pages/Register";
-import Result from "../pages/Result";
 import ResetPasswordConfirm from "../pages/ResetPasswordConfirm";
 import ResetPasswordRequest from "../pages/ResetPasswordRequest";
+import Result from "../pages/Result";
 
 function AnimatedRoutes() {
     const location = useLocation();
@@ -31,7 +31,10 @@ function AnimatedRoutes() {
                     element={<ResetPasswordConfirm />}
                 />
                 <Route path="/edit-profile" element={<EditProfile />} />
-                <Route path="/edit-profile/password" element={<ChangePassword />} />
+                <Route
+                    path="/edit-profile/password"
+                    element={<ChangePassword />}
+                />
                 <Route path="/about" element={<About />} />
                 <Route path="/ranking" element={<Ranking />} />
                 <Route path="/results" element={<Result />} />
