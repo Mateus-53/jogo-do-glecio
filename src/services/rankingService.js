@@ -60,6 +60,8 @@ export const setRanking = async (score, attempt = 0) => {
         if (!response.ok) {
             if (attempt <= 3) {
                 setRanking(score, attempt + 1);
+                
+                console.warn("Request failed, trying again...")
             } else {
                 throw new Error(
                     body.message || "Erro ao enviar pontos para o ranking"

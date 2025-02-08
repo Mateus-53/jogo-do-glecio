@@ -3,11 +3,14 @@ import { ArrowRight, Delete } from "lucide-react";
 import { useEffect, useState } from "react";
 import { HiMiniChevronLeft } from "react-icons/hi2";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import { scrollFromRight } from "../animations/pageAnimations";
-import greenHappyFace from "../assets/images/elements/green-happy-face.svg";
-import redSadFace from "../assets/images/elements/red-sad-face.svg";
 import Modal from "../components/Modal";
 import { useOverlay } from "../contexts/TimerOverlayProvider";
+import { setRanking } from "../services/rankingService";
+
+import greenHappyFace from "../assets/images/elements/green-happy-face.svg";
+import redSadFace from "../assets/images/elements/red-sad-face.svg";
 
 function Game() {
     document.title = "Tabuada · Jogo do Glécio";
@@ -31,45 +34,6 @@ function Game() {
     const handleModalConfirm = () => {
         navigate("/", { replace: true });
     };
-
-    useEffect(() => {
-        let timer;
-
-        if (isRunning && !showModal && progress > 0) {
-            timer = setInterval(() => {
-                setProgress((prev) => Math.max(prev - 1.67, 0));
-            }, 1000);
-        }
-
-        return () => clearInterval(timer);
-    }, [progress, showModal, isRunning]);
-
-    useEffect(() => {
-        if (progress === 0) {
-            /*showTimerOverlay();
-
-            navigate("/results", {
-                state: {
-                    correctAnswers: correctAnswersCount,
-                    wrongAnswers: wrongAnswersCount,
-                },
-            });*/
-        }
-    }, [progress, showTimerOverlay, navigate]);
-
-    useEffect(() => {
-        const handleVisibilityChange = () => {
-            setIsRunning(!document.hidden);
-        };
-
-        document.addEventListener("visibilitychange", handleVisibilityChange);
-
-        return () =>
-            document.removeEventListener(
-                "visibilitychange",
-                handleVisibilityChange
-            );
-    }, []);
 
     const checkIfUserIsCorrect = () => {
         if (parseInt(userResponse) === currentMultiplication.result) {
@@ -97,6 +61,69 @@ function Game() {
             setUserResponse((prev) => `${prev}${num}`);
         }
     };
+
+    const setRankingScore = async (score) => {
+        try {
+            const response = await setRanking(score);
+
+            if (response.status_code === 201) {
+                console.info("Pontos enviados para o ranking");
+            }
+        } catch (error) {
+            toast.error(
+                error.message || "Erro ao enviar pontos para o ranking",
+                { className: "bg-white" }
+            );
+        }
+    };
+
+    useEffect(() => {
+        let timer;
+
+        if (isRunning && !showModal && progress > 0) {
+            timer = setInterval(() => {
+                setProgress((prev) => Math.max(prev - 1.67, 0));
+            }, 1000);
+        }
+
+        return () => clearInterval(timer);
+    }, [progress, showModal, isRunning]);
+
+    useEffect(() => {
+        if (progress === 0) {
+            /*showTimerOverlay();
+
+            navigate("/results", {
+                state: {
+                    correctAnswers: correctAnswersCount,
+                    wrongAnswers: wrongAnswersCount,
+                },
+            });*/
+
+            if (
+                correctAnswersCount >
+                parseInt(localStorage.getItem("MAX_SCORE"))
+            ) {
+                localStorage.setItem("MAX_SCORE", correctAnswersCount);
+            }
+
+            setRankingScore(correctAnswersCount);
+        }
+    }, [progress, showTimerOverlay, correctAnswersCount, navigate]);
+
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            setIsRunning(!document.hidden);
+        };
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+
+        return () =>
+            document.removeEventListener(
+                "visibilitychange",
+                handleVisibilityChange
+            );
+    }, []);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -198,7 +225,7 @@ function Game() {
                         <input
                             className="w-full text-lg text-purpleDarkGray font-medium p-4 border border-grayColor outline-none bg-transparent rounded-xl mb-2 max-[580px]:p-3"
                             disabled
-                            type="number"
+                            type="text"
                             maxLength={3}
                             value={userResponse}
                         />

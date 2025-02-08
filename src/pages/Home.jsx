@@ -48,7 +48,7 @@ function Home() {
             // 10 minutos = 10 * 60 * 1000ms
             getUser(info.id).then(() => {
                 // Atualiza timestamp da última execução
-                console.log("REQ USER");
+                console.info("Request user info");
                 localStorage.setItem("lastGetUserCall", now.toString());
             });
         }
