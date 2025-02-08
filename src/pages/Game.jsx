@@ -25,6 +25,9 @@ function Game() {
     const [userResponse, setUserResponse] = useState("");
     const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
     const [wrongAnswersCount, setWrongAnswersCount] = useState(0);
+    const [lastMultiplication, setLastMultiplication] = useState({
+        multiplication: "",
+    });
     const [currentMultiplication, setCurrentMultiplication] = useState({
         multiplication: "0 x 0",
     });
@@ -42,16 +45,24 @@ function Game() {
             setWrongAnswersCount((prev) => prev + 1);
         }
 
+        setLastMultiplication(currentMultiplication);
+
         generateNewMultiplication();
         setUserResponse("");
     };
 
     const generateNewMultiplication = () => {
-        const firstNumber = Math.floor(Math.random() * 8) + 2;
-        const secondNumber = Math.floor(Math.random() * 9) + 1;
+        let firstNumber, secondNumber;
+        let newMultiplication;
+
+        do {
+            firstNumber = Math.floor(Math.random() * 8) + 2;
+            secondNumber = Math.floor(Math.random() * 9) + 1;
+            newMultiplication = `${firstNumber} x ${secondNumber}`;
+        } while (newMultiplication === lastMultiplication?.multiplication);
 
         setCurrentMultiplication({
-            multiplication: `${firstNumber} x ${secondNumber}`,
+            multiplication: newMultiplication,
             result: firstNumber * secondNumber,
         });
     };
@@ -129,16 +140,18 @@ function Game() {
         const handleKeyDown = (e) => {
             const numberKey = parseInt(e.key);
 
-            if (!isNaN(numberKey)) {
-                setUserResponse((prev) => `${prev}${numberKey}`);
-            }
+            if (progress != 0) {
+                if (!isNaN(numberKey)) {
+                    setUserResponse((prev) => `${prev}${numberKey}`);
+                }
 
-            if (e.key === "Enter") {
-                checkIfUserIsCorrect();
-            }
+                if (e.key === "Enter") {
+                    checkIfUserIsCorrect();
+                }
 
-            if (e.key === "Backspace") {
-                setUserResponse((prev) => prev.slice(0, -1));
+                if (e.key === "Backspace") {
+                    setUserResponse((prev) => prev.slice(0, -1));
+                }
             }
         };
 
@@ -147,7 +160,7 @@ function Game() {
         return () => {
             document.body.removeEventListener("keydown", handleKeyDown);
         };
-    }, [checkIfUserIsCorrect, userResponse]);
+    }, [checkIfUserIsCorrect, userResponse, progress]);
 
     useEffect(() => {
         generateNewMultiplication();
