@@ -196,7 +196,7 @@ function Game() {
                 <div className="flex justify-between gap-10 max-lg:gap-5 max-[580px]:flex-col">
                     {/* Multiplicação e acertos/erros */}
                     <div className="flex flex-col justify-between w-[450px] max-[580px]:w-full">
-                        <p className="text-[192px] font-black text-darkPurple text-center max-lg:text-[160px] max-[810px]:text-9xl max-sm:text-8xl h-full aling  max-[580px]:mb-10">
+                        <p className="text-[192px] font-black text-darkPurple text-center max-lg:text-[160px] max-[810px]:text-9xl max-sm:text-8xl h-full aling max-[580px]:mb-10">
                             {currentMultiplication.multiplication}
                         </p>
                         <div className="flex justify-evenly gap-4 max-[580px]:justify-between">
