@@ -102,14 +102,16 @@ function Game() {
 
     useEffect(() => {
         if (progress === 0) {
-            /*showTimerOverlay();
+            showTimerOverlay();
 
-            navigate("/results", {
-                state: {
-                    correctAnswers: correctAnswersCount,
-                    wrongAnswers: wrongAnswersCount,
-                },
-            });*/
+            const timer = setTimeout(() => {
+                navigate("/results", {
+                    state: {
+                        correctAnswers: correctAnswersCount,
+                        wrongAnswers: wrongAnswersCount,
+                    },
+                });
+            }, 1000);
 
             if (
                 correctAnswersCount >
@@ -119,8 +121,16 @@ function Game() {
             }
 
             setRankingScore(correctAnswersCount);
+
+            return () => clearTimeout(timer);
         }
-    }, [progress, showTimerOverlay, correctAnswersCount, navigate]);
+    }, [
+        progress,
+        showTimerOverlay,
+        correctAnswersCount,
+        wrongAnswersCount,
+        navigate,
+    ]);
 
     useEffect(() => {
         const handleVisibilityChange = () => {
