@@ -1,68 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    --purple: #b386ff;
+    --purple-seconday: #8e4dff;
+    --dark-purple: #7b4ec7;
+    --green: #0ea022;
+    --dark-green: #0a6315;
+    --red: #e01226;
+    --dark-red: #6d0c15;
+    --white: #f5f0ff;
+    --gray: #c1bccb;
+    --dark-gray: #716c7b;
+    --purple-gray: #4f4566;
+    --purple-dark-gray: #272135;
+    --skeleton-loading-base: #efeafa;
+    --skeleton-loading-highlight: #e7e1f6;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    --toastify-toast-bd-radius: 12px !important;
+    --toastify-toast-background: var(--white) !important;
+    --toastify-color-error: var(--red) !important;
+    --toastify-color-success: var(--green) !important;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+html,
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    font-family: "Inter", sans-serif;
+    background-color: var(--white);
+    color: var(--purple-gray);
+    height: 100%;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.no-scroll {
+    overflow: hidden;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.animate-tilt-shaking {
+    animation: tilt-shaking 0.5s infinite;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+@media not all and (max-width: 640px) {
+    .scrollbar-hide {
+        scrollbar-width: none;
+    }
+}
+
+@keyframes tilt-shaking {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateY(-9px);
+    }
+
+    35% {
+        transform: translateY(-9px) rotate(17deg);
+    }
+
+    55% {
+        transform: translateY(-9px) rotate(-17deg);
+    }
+
+    65% {
+        transform: translateY(-9px) rotate(17deg);
+    }
+
+    75% {
+        transform: translateY(-9px) rotate(-17deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0);
+    }
 }
