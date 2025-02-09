@@ -120,7 +120,7 @@ function RankingList() {
     };
 
     const handleResetRanking = async () => {
-        setIsRankingReseting(true)
+        setIsRankingReseting(true);
 
         try {
             const response = await resetRanking();
@@ -136,7 +136,7 @@ function RankingList() {
             );
         } finally {
             setShowModal(false);
-            setIsRankingReseting(false)
+            setIsRankingReseting(false);
         }
     };
 
@@ -246,9 +246,18 @@ function RankingList() {
                 <div className="relative mt-2 max-sm:flex-1 max-sm:overflow-hidden">
                     <div
                         ref={rankingListContainerRef}
-                        className="flex flex-col pr-2 overflow-y-auto divide-y-2 divide-grayColor/90 max-h-full md:max-h-72"
+                        className="flex flex-col pr-2 overflow-y-auto divide-y-2 divide-grayColor/90 h-full max-h-full md:max-h-72"
                     >
-                        {activeList.length > 0 ? (
+                        {isRankingUpdating ? (
+                            <SkeletonTheme
+                                baseColor="var(--skeleton-loading-base)"
+                                highlightColor="var(--skeleton-loading-highlight)"
+                            >
+                                {Array.from({ length: 20 }).map((_, i) => (
+                                    <RankingItemSkeleton key={i} />
+                                ))}
+                            </SkeletonTheme>
+                        ) : activeList.length > 0 ? (
                             activeList.map((item, index) => (
                                 <AnimatePresence
                                     key={`${activeTab}-${item.user.id}-${index}`}
@@ -311,14 +320,9 @@ function RankingList() {
                                 </AnimatePresence>
                             ))
                         ) : (
-                            <SkeletonTheme
-                                baseColor="var(--skeleton-loading-base)"
-                                highlightColor="var(--skeleton-loading-highlight)"
-                            >
-                                {Array.from({ length: 20 }).map((_, i) => (
-                                    <RankingItemSkeleton key={i} />
-                                ))}
-                            </SkeletonTheme>
+                            <p className="flex items-center justify-center text-center min-h-[282px] h-full">
+                                Nada por aqui ainda 😥. Que tal liderar o ranking?
+                            </p>
                         )}
                     </div>
                     {showGradientTop && (
