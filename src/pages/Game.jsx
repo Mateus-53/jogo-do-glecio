@@ -16,6 +16,10 @@ function Game() {
     document.title = "Tabuada · Jogo do Glécio";
 
     const [showModal, setShowModal] = useState(false);
+    const [showConfettiInResultPage, setShowConfettiInResultPage] =
+        useState(false);
+    const [multiplicationScaleAnimation, setMultiplicationScaleAnimation] =
+        useState(false);
 
     const [progress, setProgress] = useState(100);
     const [isRunning, setIsRunning] = useState(true);
@@ -65,6 +69,13 @@ function Game() {
             multiplication: newMultiplication,
             result: firstNumber * secondNumber,
         });
+
+        setMultiplicationScaleAnimation(true)
+        let timer = setTimeout(() => {
+            setMultiplicationScaleAnimation(false)
+        }, 200);
+
+        return () => clearTimeout(timer)
     };
 
     const handleNumericButtonClick = (num) => {
@@ -104,21 +115,25 @@ function Game() {
         if (progress === 0) {
             showTimerOverlay();
 
+            if (
+                correctAnswersCount >
+                parseInt(localStorage.getItem("MAX_SCORE") || "0")
+            ) {
+                localStorage.setItem("MAX_SCORE", correctAnswersCount);
+                setShowConfettiInResultPage(true);
+            }
+
             const timer = setTimeout(() => {
+                console.log("show confetti", showConfettiInResultPage);
+
                 navigate("/results", {
                     state: {
                         correctAnswers: correctAnswersCount,
                         wrongAnswers: wrongAnswersCount,
+                        showConfetti: showConfettiInResultPage,
                     },
                 });
             }, 1000);
-
-            if (
-                correctAnswersCount >
-                parseInt(localStorage.getItem("MAX_SCORE"))
-            ) {
-                localStorage.setItem("MAX_SCORE", correctAnswersCount);
-            }
 
             setRankingScore(correctAnswersCount);
 
@@ -129,6 +144,7 @@ function Game() {
         showTimerOverlay,
         correctAnswersCount,
         wrongAnswersCount,
+        showConfettiInResultPage,
         navigate,
     ]);
 
@@ -206,7 +222,11 @@ function Game() {
                 <div className="flex justify-between gap-10 max-lg:gap-5 max-[580px]:flex-col">
                     {/* Multiplicação e acertos/erros */}
                     <div className="flex flex-col justify-between w-[450px] max-[580px]:w-full">
-                        <p className="text-[192px] font-black text-darkPurple text-center max-lg:text-[160px] max-[810px]:text-9xl max-sm:text-8xl h-full aling max-[580px]:mb-10">
+                        <p
+                            className={`text-[192px] font-black text-darkPurple text-center max-lg:text-[160px] max-[810px]:text-9xl max-sm:text-8xl h-full aling max-[580px]:mb-10 transition-scale duration-150 ease-in-out ${
+                                multiplicationScaleAnimation ? "scale-105" : "scale-100"
+                            }`}
+                        >
                             {currentMultiplication.multiplication}
                         </p>
                         <div className="flex justify-evenly gap-4 max-[580px]:justify-between">

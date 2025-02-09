@@ -42,14 +42,14 @@ function Result() {
                 <main></main>
             </motion.div>
 
-            {location.state?.correctAnswers > userInfo.maxScore && (
+            {location.state?.showConfetti && (
                 <Confetti
                     width={windowWidth}
                     height={windowHeight}
                     recycle={false}
                     numberOfPieces={280}
                     style={{
-                        zIndex: 50,
+                        zIndex: 20,
                     }}
                 />
             )}
