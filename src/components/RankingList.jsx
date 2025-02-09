@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Trash } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { HiArrowPath, HiFire, HiStar } from "react-icons/hi2";
 import { IoMdCompass } from "react-icons/io";
@@ -7,9 +7,14 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { toast } from "react-toastify";
 import { fade } from "../animations/pageAnimations";
 import ButtonDanger from "../components/buttons/ButtonDanger";
-import { getRankingGlobal, getRankingNormal } from "../services/rankingService";
+import {
+    getRankingGlobal,
+    getRankingNormal,
+    resetRanking,
+} from "../services/rankingService";
 import { getLocalUserInfo } from "../utils/userUtils";
 import ButtonSupport from "./buttons/ButtonSupport";
+import Modal from "./Modal";
 
 function RankingList() {
     const [rankingNormalList, setRankingNormalList] = useState([]);
@@ -28,6 +33,8 @@ function RankingList() {
     const [showGradientBottom, setShowGradientBottom] = useState(false);
 
     const [isRankingUpdating, setIsRankingUpdating] = useState(false);
+    const [isRankingReseting, setIsRankingReseting] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const rankingListContainerRef = useRef(null);
 
@@ -112,7 +119,9 @@ function RankingList() {
         }
     };
 
-    const resetRanking = async () => {
+    const handleResetRanking = async () => {
+        setIsRankingReseting(true)
+
         try {
             const response = await resetRanking();
 
@@ -125,6 +134,9 @@ function RankingList() {
                     "Erro ao limpar o ranking. Tente novamente mais tarde",
                 { className: "bg-white" }
             );
+        } finally {
+            setShowModal(false);
+            setIsRankingReseting(false)
         }
     };
 
@@ -188,9 +200,9 @@ function RankingList() {
                     {userInfo.isAdmin && (
                         <ButtonDanger
                             className="flex items-center justify-center w-full h-12 gap-2 p-3 border rounded-lg font text-darkGray border-grayColor"
-                            onClick=""
+                            onClick={() => setShowModal(true)}
                         >
-                            <Trash className="w-5 h-5" strokeWidth={1.6} />
+                            <Trash2 className="w-5 h-5" strokeWidth={1.6} />
                             Limpar
                         </ButtonDanger>
                     )}
@@ -317,6 +329,18 @@ function RankingList() {
                     )}
                 </div>
             </div>
+            <AnimatePresence mode="wait">
+                {showModal && (
+                    <Modal
+                        title="Tem certeza que deseja resetar o ranking?"
+                        message="Todo os dados do ranking serão apagados."
+                        confirmText="Resetar"
+                        isLoading={isRankingReseting}
+                        onConfirm={() => handleResetRanking()}
+                        onCancel={() => setShowModal(false)}
+                    />
+                )}
+            </AnimatePresence>
         </>
     );
 }

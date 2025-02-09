@@ -357,6 +357,7 @@ function Game() {
                     <Modal
                         title="Tem certeza que deseja sair?"
                         message="Todo seu progresso será perdido."
+                        confirmText="Sair"
                         onConfirm={handleModalConfirm}
                         onCancel={() => setShowModal(false)}
                     />
