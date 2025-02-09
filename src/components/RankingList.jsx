@@ -148,7 +148,6 @@ function RankingList() {
 
     useEffect(() => {
         const container = rankingListContainerRef.current;
-
         if (!container) return;
 
         const handleScroll = () => {
@@ -162,25 +161,31 @@ function RankingList() {
 
             const isAtTop = scrollTop > 0;
             const isAtBottom =
-                container.scrollHeight - scrollTop === container.offsetHeight;
+                Math.ceil(container.scrollTop + container.offsetHeight) >=
+                container.scrollHeight;
 
             setShowGradientTop(isAtTop);
             setShowGradientBottom(!isAtBottom);
         };
 
-        container.addEventListener("scroll", handleScroll);
-
-        container.scrollTop =
-            activeTab === "normal"
-                ? normalScrollPosition
-                : globalScrollPosition;
+        if (activeTab === "normal") {
+            requestAnimationFrame(
+                () => (container.scrollTop = normalScrollPosition)
+            );
+        } else if (activeTab === "global") {
+            requestAnimationFrame(
+                () => (container.scrollTop = globalScrollPosition)
+            );
+        }
 
         if (container) {
             setShowGradientTop(container.scrollTop > 0);
         }
 
+        container.addEventListener("scroll", handleScroll);
+
         return () => container.removeEventListener("scroll", handleScroll);
-    }, [activeTab, normalScrollPosition, globalScrollPosition]);
+    }, [activeTab]);
 
     const activeList =
         activeTab === "normal" ? rankingNormalList : rankingGlobalList;
@@ -321,7 +326,8 @@ function RankingList() {
                             ))
                         ) : (
                             <p className="flex items-center justify-center text-center min-h-[282px] h-full">
-                                Nada por aqui ainda 😥. Que tal liderar o ranking?
+                                Nada por aqui ainda 😥. Que tal liderar o
+                                ranking?
                             </p>
                         )}
                     </div>
