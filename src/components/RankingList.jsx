@@ -21,6 +21,9 @@ function RankingList() {
         global: false,
     });
 
+    const [normalScrollPosition, setNormalScrollPosition] = useState(0);
+    const [globalScrollPosition, setGlobalScrollPosition] = useState(0);
+
     const [showGradientTop, setShowGradientTop] = useState(true);
     const [showGradientBottom, setShowGradientBottom] = useState(false);
 
@@ -132,27 +135,40 @@ function RankingList() {
     }, [loadedTabs.normal]);
 
     useEffect(() => {
+        const container = rankingListContainerRef.current;
+
+        if (!container) return;
+
         const handleScroll = () => {
-            const container = rankingListContainerRef.current;
+            const scrollTop = container.scrollTop;
 
-            if (!container) return;
+            if (activeTab === "normal") {
+                setNormalScrollPosition(scrollTop);
+            } else if (activeTab === "global") {
+                setGlobalScrollPosition(scrollTop);
+            }
 
-            const isAtTop = container.scrollTop > 0;
+            const isAtTop = scrollTop > 0;
             const isAtBottom =
-                container.scrollHeight - container.scrollTop ===
-                container.offsetHeight;
+                container.scrollHeight - scrollTop === container.offsetHeight;
 
             setShowGradientTop(isAtTop);
             setShowGradientBottom(!isAtBottom);
         };
 
-        const container = rankingListContainerRef.current;
+        container.addEventListener("scroll", handleScroll);
+
+        container.scrollTop =
+            activeTab === "normal"
+                ? normalScrollPosition
+                : globalScrollPosition;
+
         if (container) {
-            container.addEventListener("scroll", handleScroll);
-            handleScroll();
-            return () => container.removeEventListener("scroll", handleScroll);
+            setShowGradientTop(container.scrollTop > 0);
         }
-    }, []);
+
+        return () => container.removeEventListener("scroll", handleScroll);
+    }, [activeTab, normalScrollPosition, globalScrollPosition]);
 
     const activeList =
         activeTab === "normal" ? rankingNormalList : rankingGlobalList;
@@ -174,7 +190,7 @@ function RankingList() {
                             className="flex items-center justify-center w-full h-12 gap-2 p-3 border rounded-lg font text-darkGray border-grayColor"
                             onClick=""
                         >
-                            <Trash className="w-5 h-5" strokeWidth={1.6}/>
+                            <Trash className="w-5 h-5" strokeWidth={1.6} />
                             Limpar
                         </ButtonDanger>
                     )}

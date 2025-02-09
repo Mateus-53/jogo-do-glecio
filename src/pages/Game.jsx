@@ -16,6 +16,10 @@ function Game() {
     document.title = "Tabuada · Jogo do Glécio";
 
     const [showModal, setShowModal] = useState(false);
+    const [showConfettiInResultPage, setShowConfettiInResultPage] =
+        useState(false);
+    const [multiplicationScaleAnimation, setMultiplicationScaleAnimation] =
+        useState(false);
 
     const [progress, setProgress] = useState(100);
     const [isRunning, setIsRunning] = useState(true);
@@ -25,6 +29,9 @@ function Game() {
     const [userResponse, setUserResponse] = useState("");
     const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
     const [wrongAnswersCount, setWrongAnswersCount] = useState(0);
+    const [lastMultiplication, setLastMultiplication] = useState({
+        multiplication: "",
+    });
     const [currentMultiplication, setCurrentMultiplication] = useState({
         multiplication: "0 x 0",
     });
@@ -42,18 +49,33 @@ function Game() {
             setWrongAnswersCount((prev) => prev + 1);
         }
 
+        setLastMultiplication(currentMultiplication);
+
         generateNewMultiplication();
         setUserResponse("");
     };
 
     const generateNewMultiplication = () => {
-        const firstNumber = Math.floor(Math.random() * 8) + 2;
-        const secondNumber = Math.floor(Math.random() * 9) + 1;
+        let firstNumber, secondNumber;
+        let newMultiplication;
+
+        do {
+            firstNumber = Math.floor(Math.random() * 8) + 2;
+            secondNumber = Math.floor(Math.random() * 9) + 1;
+            newMultiplication = `${firstNumber} x ${secondNumber}`;
+        } while (newMultiplication === lastMultiplication?.multiplication);
 
         setCurrentMultiplication({
-            multiplication: `${firstNumber} x ${secondNumber}`,
+            multiplication: newMultiplication,
             result: firstNumber * secondNumber,
         });
+
+        setMultiplicationScaleAnimation(true)
+        let timer = setTimeout(() => {
+            setMultiplicationScaleAnimation(false)
+        }, 200);
+
+        return () => clearTimeout(timer)
     };
 
     const handleNumericButtonClick = (num) => {
@@ -91,25 +113,40 @@ function Game() {
 
     useEffect(() => {
         if (progress === 0) {
-            /*showTimerOverlay();
-
-            navigate("/results", {
-                state: {
-                    correctAnswers: correctAnswersCount,
-                    wrongAnswers: wrongAnswersCount,
-                },
-            });*/
+            showTimerOverlay();
 
             if (
                 correctAnswersCount >
-                parseInt(localStorage.getItem("MAX_SCORE"))
+                parseInt(localStorage.getItem("MAX_SCORE") || "0")
             ) {
                 localStorage.setItem("MAX_SCORE", correctAnswersCount);
+                setShowConfettiInResultPage(true);
             }
 
+            const timer = setTimeout(() => {
+                console.log("show confetti", showConfettiInResultPage);
+
+                navigate("/results", {
+                    state: {
+                        correctAnswers: correctAnswersCount,
+                        wrongAnswers: wrongAnswersCount,
+                        showConfetti: showConfettiInResultPage,
+                    },
+                });
+            }, 1000);
+
             setRankingScore(correctAnswersCount);
+
+            return () => clearTimeout(timer);
         }
-    }, [progress, showTimerOverlay, correctAnswersCount, navigate]);
+    }, [
+        progress,
+        showTimerOverlay,
+        correctAnswersCount,
+        wrongAnswersCount,
+        showConfettiInResultPage,
+        navigate,
+    ]);
 
     useEffect(() => {
         const handleVisibilityChange = () => {
@@ -129,16 +166,18 @@ function Game() {
         const handleKeyDown = (e) => {
             const numberKey = parseInt(e.key);
 
-            if (!isNaN(numberKey)) {
-                setUserResponse((prev) => `${prev}${numberKey}`);
-            }
+            if (progress != 0) {
+                if (!isNaN(numberKey)) {
+                    setUserResponse((prev) => `${prev}${numberKey}`);
+                }
 
-            if (e.key === "Enter") {
-                checkIfUserIsCorrect();
-            }
+                if (e.key === "Enter") {
+                    checkIfUserIsCorrect();
+                }
 
-            if (e.key === "Backspace") {
-                setUserResponse((prev) => prev.slice(0, -1));
+                if (e.key === "Backspace") {
+                    setUserResponse((prev) => prev.slice(0, -1));
+                }
             }
         };
 
@@ -147,7 +186,7 @@ function Game() {
         return () => {
             document.body.removeEventListener("keydown", handleKeyDown);
         };
-    }, [checkIfUserIsCorrect, userResponse]);
+    }, [checkIfUserIsCorrect, userResponse, progress]);
 
     useEffect(() => {
         generateNewMultiplication();
@@ -183,7 +222,11 @@ function Game() {
                 <div className="flex justify-between gap-10 max-lg:gap-5 max-[580px]:flex-col">
                     {/* Multiplicação e acertos/erros */}
                     <div className="flex flex-col justify-between w-[450px] max-[580px]:w-full">
-                        <p className="text-[192px] font-black text-darkPurple text-center max-lg:text-[160px] max-[810px]:text-9xl max-sm:text-8xl h-full aling  max-[580px]:mb-10">
+                        <p
+                            className={`text-[192px] font-black text-darkPurple text-center max-lg:text-[160px] max-[810px]:text-9xl max-sm:text-8xl h-full aling max-[580px]:mb-10 transition-scale duration-150 ease-in-out ${
+                                multiplicationScaleAnimation ? "scale-105" : "scale-100"
+                            }`}
+                        >
                             {currentMultiplication.multiplication}
                         </p>
                         <div className="flex justify-evenly gap-4 max-[580px]:justify-between">
