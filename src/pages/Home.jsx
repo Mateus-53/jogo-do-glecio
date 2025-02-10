@@ -121,7 +121,7 @@ function Home() {
                                     Maior pontuação: {userInfo.maxScore ?? "00"}
                                 </p>
                                 <div
-                                    className={`flex z-50 items-center gap-2 text-purpleGray max-sm:absolute max-sm:w-40 max-sm:bg-white max-sm:shadow-md max-sm:border max-sm:rounded-xl max-sm:flex-col max-sm:items-start top-12 right-1 max-sm:gap-0 max-sm:divide-y-2 max-sm:${
+                                    className={`flex z-30 items-center gap-2 text-purpleGray max-sm:absolute max-sm:w-40 max-sm:bg-white max-sm:shadow-md max-sm:border max-sm:rounded-xl max-sm:flex-col max-sm:items-start top-12 right-1 max-sm:gap-0 max-sm:divide-y-2 max-sm:${
                                         !mobileDropDown && "hidden"
                                     }`}
                                 >
