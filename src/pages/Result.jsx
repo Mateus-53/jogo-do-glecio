@@ -75,7 +75,7 @@ function Result() {
 							/>
 							<div className="flex flex-col">
 								<span className="text-greenColor font-extrabold text-4xl leading-6 max-[580px]:text-xl max-[580px]:leading-3">
-									400
+									{location.state?.correctAnswers ?? "0"}
 								</span>
 								<span className="font-medium text-darkGray text-xl max-[580px]:text-base">
 									Acertos
@@ -91,7 +91,7 @@ function Result() {
 							/>
 							<div className="flex flex-col">
 								<span className="text-redColor font-extrabold text-4xl leading-6 max-[580px]:text-xl max-[580px]:leading-3">
-									10
+									{location.state?.wrongAnswers ?? "0"}
 								</span>
 								<span className="font-medium text-darkGray text-lg max-[580px]:text-base">
 									Erros
@@ -113,7 +113,7 @@ function Result() {
 								Ranking
 							</ButtonSupport>
 						</Link>
-						<Link to="/play" className="max-w-[200px] w-full">
+						<Link to="/play" replace={true} className="max-w-[200px] w-full">
 							<ButtonSuccess>
 								<RefreshCcw strokeWidth={1.5} />
 								Reiniciar
