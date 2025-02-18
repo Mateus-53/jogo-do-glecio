@@ -30,7 +30,7 @@ export const getUser = async (userId) => {
             avatarDefault: data.avatar.path_default,
             avatarMedium: data.avatar.path_256px,
             avatarLow: data.avatar.path_128px,
-            maxScore: data.maxScore,
+            maxScore: data.max_score,
             isAdmin: data.is_admin,
         };
         setLocalUserInfo(userInfo);
